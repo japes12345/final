@@ -1,0 +1,28 @@
+    require("../includes/config.php"); 
+    
+    if ($_SERVER["REQUEST_METHOD"] == "GET")
+    {
+    $rows1 = query("SELECT college FROM colleges WHERE 1");
+    $positions = [];
+        foreach($rows1 as $row1)
+        {
+            $positions[] = [
+                "college" => $row1["college"]
+            ];
+        }
+    render("template2.php", ["positions" => $positions, "title" => "Compare"]);
+    }
+    else if($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+    $college = $_POST["collegeselect"];
+    
+    // gets portfolio information belonging to user
+    $rows = query("SELECT * FROM colleges WHERE college = ?", $college);
+   
+    if ($rows != FALSE)
+    {
+        render("template3.php", ["rows" => $rows]);
+    }
+    }
+    
+?>
