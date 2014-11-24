@@ -2,6 +2,7 @@ DIRECTIONS
 
 Importing into PHPMyAdmin
 1. Type out (copy from here on GitHub) into a file called colleges.csv
+1.5. Go to SQL and run "DELETE FROM colleges WHERE 1"
 2. Go to import tab on phpmyadmin
 3. Choose file colleges.csv, make sure format is CSV below
     - Example line is "Harvard","Cambridge","2400"
