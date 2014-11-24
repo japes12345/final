@@ -1,0 +1,22 @@
+<form action="index.php" method="post">
+    <fieldset>
+        <div> 
+                First college?
+                <select name="collegeselect">
+                    <?php foreach ($positions as $position): ?>
+                        <option value="<?=$position['college']?>"> <?=$position["college"]?></option>
+                    <?php endforeach ?>
+                </select>     
+                Second college?
+                <select name="collegeselect2">
+                    <?php foreach ($positions as $position): ?>
+                        <option value="<?=$position['college']?>"> <?=$position["college"]?></option>
+                    <?php endforeach ?>
+                </select>     
+        </div>
+        </br>
+        <div>
+            <button type="submit">Go</button>
+        </div>
+    </fieldset>
+</form>
