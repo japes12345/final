@@ -1,0 +1,28 @@
+
+
+<?php
+
+    /**
+     *index.php
+     *CS50 2014 Final
+     *
+     *Jake Morrissey
+     *jakemorrissey@college.harvard.edu
+     *
+     *main page, displays portfolio and links
+     */
+
+    // configuration
+    require("../includes/config.php"); 
+    
+    $college = "Harvard";
+    
+    // gets portfolio information belonging to user
+    $rows = query("SELECT * FROM colleges WHERE college = ?", $college);
+   
+    if ($rows != FALSE)
+    {
+        render("template2.php", ["rows" => $rows]);
+    }
+    
+?>
