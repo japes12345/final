@@ -1,0 +1,22 @@
+<div>
+    <table>
+        <tr>
+            <td> College </td>
+            <td> Location </td>
+            <td> SAT </td>
+        </tr>
+        <?php
+            if ($rows != NULL)
+            {
+            foreach ($rows as $row)
+            {
+                print("<tr>");
+                print("<td>" . $row["college"] . "</td>");
+                print("<td>" . $row["location"] . "</td>");
+                print("<td>" . $row["sat"] . "</td>");
+                print("</tr>");
+            }
+            }
+        ?>
+    </table>
+</div>
