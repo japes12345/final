@@ -1,0 +1,12 @@
+DIRECTIONS
+
+Importing into PHPMyAdmin
+1. Type out (copy from here on GitHub) into a file called colleges.csv
+2. Go to import tab on phpmyadmin
+3. Choose file colleges.csv, make sure format is CSV below
+    - Example line is "Harvard","Cambridge","2400"
+4. ***CHECK THE BOX THAT SAYS "Replace table data with file"
+5. Columns sep w: ,
+6. Columns enc w: "
+7. Columns esc w: "
+8. Set column names to "college,location,sat" or whatever our latest column names are (no spaces, sep with commas)
