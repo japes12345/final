@@ -1,0 +1,25 @@
+<form action="index.php" method="post">
+    <fieldset>
+        </br>
+        <div> 
+            First college?
+            <select name="collegeselect">
+                <option value=""></option>
+                <?php foreach ($positions as $position): ?>
+                     <option value="<?=$position['college']?>"> <?=$position["college"]?></option>
+                <?php endforeach ?>
+            </select>     
+            Second college?
+            <select name="collegeselect2">
+                <option value=""></option>
+                <?php foreach ($positions as $position): ?>
+                   <option value="<?=$position['college']?>"> <?=$position["college"]?></option>
+                <?php endforeach ?>
+            </select>     
+        </div>
+        </br>
+        <div>
+            <button type="submit">Compare!</button>
+        </div>
+    </fieldset>
+</form>
