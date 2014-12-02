@@ -1,0 +1,58 @@
+<div>
+    <table>
+        <tr>
+            <td> College </td>
+            <td> Location </td>
+            <td> SAT </trd>
+        </tr>
+        </br>
+        <?php
+        $color;
+        $color2;
+        if ($rows[0]["sat"] > $rows2[0]["sat"])
+        {
+            $color = "option-a";
+            $color2 = "option-b";
+        }
+        else if ($rows[0]["sat"] == $rows2[0]["sat"])
+        {
+            $color = "option-c";
+            $color2 = "option-c";
+        }
+        else 
+        {
+            $color = "option-b";
+            $color2 = "option-a";
+        }
+        ?>
+        
+        <?php         
+            if ($rows != NULL)
+            {
+                foreach ($rows as $row)
+                {
+                    print("<tr>");
+                    print("<td>" . $row["college"] . "</td>");
+                    print("<td>" . $row["location"] . "</td>");           
+                    print("<td class=$color>" . $row["sat"] . "</td>");
+                    print("</tr>");
+                }
+            }
+        ?>
+        </br>
+        <?php
+            if ($rows2 != NULL)
+            {
+                foreach ($rows2 as $row2)
+                {
+                    print("<tr>");
+                    print("<td>" . $row2["college"] . "</td>");
+                    print("<td>" . $row2["location"] . "</td>");
+                    print("<td class=$color2>" . $row2["sat"] . "</td>");
+                    print("</tr>");
+                }
+            }
+        ?>
+    </table>
+    </div>
+</div>
