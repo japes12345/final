@@ -1,0 +1,50 @@
+<?php
+
+    /**
+     *index.php
+     *CS50 2014 Final
+     *
+     *Jake Morrissey
+     *jakemorrissey@college.harvard.edu
+     *
+     *main page, displays portfolio and links
+     */
+
+    // configuration
+    require("../includes/config.php"); 
+    
+    if($_SERVER["REQUEST_METHOD"] == "GET")
+    {
+        $rows1 = query("SELECT college FROM colleges WHERE 1");
+        
+        $positions = [];
+        foreach($rows1 as $row1)
+        {
+            $positions[] = [
+                "college" => $row1["college"]
+            ];
+        }
+        
+        render("template2.php", ["positions" => $positions, "title" => "Compare"]);
+    }
+    else if($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        $college = $_POST["collegeselect"];
+        $college2 = $_POST["collegeselect2"];
+        
+        if(empty($college) || empty($college2))
+        {
+            apologize("Please select two colleges.");
+        }
+        else if($college == $college2)
+        {
+            apologize("Please select two different colleges.");
+        }       
+        else
+        {
+            $rows = query("SELECT * FROM colleges WHERE college = ?", $college);
+            $rows2 = query("SELECT * FROM colleges WHERE college = ?", $college2);
+            render("template3.php", ["rows" => $rows, "rows2" => $rows2]);
+        }
+    }    
+?>
