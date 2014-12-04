@@ -1,0 +1,139 @@
+<div>
+
+    <table>
+    <tr>
+        <td>RANK</td>
+        <td>NAME</td>
+        <td>POPRANK</td>
+        <td>AREARANK</td>
+        <td>TEMPRANK</td>
+        <td>FINALSCORE</td>
+    </tr>
+
+    <?php
+        $positions = query("SELECT * FROM states WHERE 1");
+        
+        $states = []; //states in alpha order
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $states[$i] = $positions[$i]["name"];
+        }
+        /*
+        $mega = [];//array of "state" objects that have attributes: populationdev,areadev,tempdev
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $mega[$states[$i]] = [
+                "populationdev" => abs($positions[$i]["population"] - $xpopulation),
+                "areadev" => abs($positions[$i]["area"] - $xarea),
+                "tempdev" => abs($positions[$i]["temp"] - $xtemp)
+            ];
+        }
+        */
+        
+        
+        
+        
+        
+        $populationdev = []; //all the population devs
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $populationdev[$i] = abs($positions[$i]["population"] - $xpopulation);
+        } 
+        
+        $populationstates = array();//state -> populationdev
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $populationstates[$states[$i]] = $populationdev[$i];
+        }
+        asort($populationstates);//sorted by proximity to ideal
+        
+        $pskeys = [];
+        $i = 1;
+        $popranks = [];
+        foreach ($populationstates as $pkey => $pval)
+        {
+            $pskeys[$i] = $pkey;
+            $popranks[$pkey] = $i;
+            $i = $i + 1;
+        }
+        
+        //POPRANKS is array: state -> rank
+        
+        
+        $areadev = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $areadev[$i] = abs($positions[$i]["area"] - $xarea);
+        }
+        $areastates = array();
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $areastates[$states[$i]] = $areadev[$i];
+        }
+        asort($areastates);
+        
+        $askeys = [];
+        $j = 1;
+        $arearanks = [];
+        foreach ($areastates as $akey => $aval)
+        {
+            $arearanks[$akey] = $j;
+            $j = $j + 1;
+        }
+
+        
+        $tempdev = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $tempdev[$i] = abs($positions[$i]["temp"] - $xtemp);
+        }
+        $tempstates = array();
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $tempstates[$states[$i]] = $tempdev[$i];
+        }
+        asort($tempstates);
+        
+        $k = 1;
+        $tempranks = [];
+        foreach ($tempstates as $tkey => $tval)
+        {
+            $tempranks[$tkey] = $k;
+            $k = $k + 1;
+        }
+
+        $finalrankraw = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $finalrankraw[$states[$i]] = $popranks[$states[$i]] * $ipopulation + $arearanks[$states[$i]] * $iarea + $tempranks[$states[$i]] * $itemp;
+        }
+        asort($finalrankraw);
+        
+        $finalkeys = [];
+        $l = 1;
+        $finalranks = []; //state -> final rank
+        foreach($finalrankraw as $fkey => $fval)
+        {
+            $finalkeys[$l] = $fkey;
+            $finalranks[$fkey] = $l;
+            $l = $l + 1;
+        }
+        
+        for ($i = 1; $i < 51; $i = $i + 1)
+        {
+            
+            print("<tr>");
+            print("<td>" . $i . "</td>");
+            print("<td>" . $finalkeys[$i] . "</td>");
+            print("<td>" . $popranks[$finalkeys[$i]] . "</td>");
+            print("<td>" . $arearanks[$finalkeys[$i]] . "</td>");
+            print("<td>" . $tempranks[$finalkeys[$i]] . "</td>");
+            print("<td>" . $finalrankraw[$finalkeys[$i]] . "</td>");
+            print("</tr>");
+        }
+        
+        
+       
+    ?>
+    </table>
+</div>
