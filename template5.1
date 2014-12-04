@@ -1,0 +1,74 @@
+<div>
+    <?php
+        $positions = query("SELECT * FROM states WHERE 1");
+        
+        $states = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $states[$i] = $positions[$i]["name"];
+        }
+        
+        $populationdev = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $populationdev[$i] = abs($positions[$i]["population"] - $xpopulation);
+        } 
+        
+        $populationstates = array();
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $populationstates[$states[$i]] = $populationdev[$i];
+        }
+        asort($populationstates);
+        
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $populationstates[$populationstates[$i]] = [$populationstates[$states[$i]], $i];
+        }
+        
+        
+        /*$polutionstates = [
+            "MA" => [
+                "population" => 50,
+                "
+            ]
+        ];*/
+        
+        /*$i = 0;
+        foreach ($populationstates as $curr)
+        {
+            $populationstates[$curr] = [$populationstates[$states[$i]],$i];
+            $i = $i + 1;
+        }
+        dump($populationstates);*/
+        
+        
+        $areadev = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $areadev[$i] = abs($positions[$i]["area"] - $xarea);
+        }
+        $areastates = array();
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $areastates[$states[$i]] = $areadev[$i];
+        }
+        asort($areastates);
+        
+        $tempdev = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $tempdev[$i] = abs($positions[$i]["temp"] - $xtemp);
+        }
+        $tempstates = array();
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $tempstates[$states[$i]] = $tempdev[$i];
+        }
+        asort($tempstates);
+           
+        
+        
+        
+    ?>
+</div>
