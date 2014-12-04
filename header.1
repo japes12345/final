@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/styles.css?v=<?php echo(time()); ?>" rel="stylesheet" type="text/css"/>
+        <title>State Compare</title>
+        
+        <?php if (isset($title)): ?>
+            <title>State Compare: <?= htmlspecialchars($title) ?></title>
+        <?php else: ?>
+            <title>State Compare</title>
+        <?php endif ?>
+        
+
+        <script src="/js/jquery-1.11.1.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/scripts.js"></script>
+
+    </head>
+
+    <body>
+
+        <div class="container">
+
+            <div id="top">
+                </br>
+                <a href="/"><img alt="America Picture" height=126 width=200 src="/img/america.jpg"/></a>
+                </br>
+                </br>
+            </div>
+
+            <div id="middle">
