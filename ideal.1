@@ -1,0 +1,36 @@
+<?php
+
+    /**
+     *index.php
+     *CS50 2014 Final
+     *
+     *Jake Morrissey
+     *jakemorrissey@college.harvard.edu
+     *
+     *main page, displays portfolio and links
+     */
+
+    // configuration
+    require("../includes/config.php"); 
+    
+    if($_SERVER["REQUEST_METHOD"] == "GET")
+    {
+        render("template4.php");
+    }
+    else if($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        $ipopulation = $_POST["ipopulation"];
+        $iarea = $_POST["iarea"];
+        $itemp = $_POST["itemp"];
+        
+        $xpopulation = $_POST["xpopulation"];
+        $xarea = $_POST["xarea"];
+        $xtemp = $_POST["xtemp"];
+        
+        $apopulation = 6265634;
+        $aarea = 75885;
+        $atemp = 51.9;
+        
+        render("template5.php", ["ipopulation" => $ipopulation, "iarea" => $iarea, "itemp" => $itemp, "xpopulation" => $xpopulation, "xarea" => $xarea, "xtemp" => $xtemp, "apopulation" => $apopulation, "aarea" => $aarea, "atemp" => $atemp]);
+    }  
+?>
