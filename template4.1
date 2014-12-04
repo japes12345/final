@@ -1,0 +1,43 @@
+<form action="ideal.php" method="post">
+    <fieldset>
+        </br>
+        <div> 
+            <?php
+                $apopulation = 6265634;
+                $aarea = 75885;
+                $atemp = 51.9;
+            ?>
+            <div>
+                Population Importance: 
+                <input value=5 name="ipopulation" placeholder="0-10" type="text"/>
+            </div>
+                Ideal Population:                
+                <input name="xpopulation" placeholder="Average: <?php echo($apopulation); ?>" type="text"/>
+                
+            </br>
+            </br>
+            <div>
+                Area Importance: 
+                <input value=5 name="iarea" placeholder="0-10" type="text"/>
+            </div>
+                Ideal Area:
+                <input name="xarea" placeholder="Average: <?php echo($aarea); ?>" type="text"/>
+                
+                
+            </br>
+            </br>
+            <div>
+                Average Temperature Importance: 
+                <input value=5 name="itemp" placeholder="0-10" type="text"/>
+            </div>
+                Ideal Temperature:
+                <input name="xtemp" placeholder="Average: <?php echo($atemp); ?>" type="text"/>
+            </br>
+                
+        </div>
+        </br>
+        <div>
+            <button type="submit">Go!</button>
+        </div>
+    </fieldset>
+</form>
