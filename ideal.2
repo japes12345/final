@@ -1,0 +1,128 @@
+<?php
+
+    /**
+     *index.php
+     *CS50 2014 Final
+     *
+     *Jake Morrissey
+     *jakemorrissey@college.harvard.edu
+     *
+     *main page, displays portfolio and links
+     */
+
+    // configuration
+    require("../includes/config.php"); 
+    
+    if($_SERVER["REQUEST_METHOD"] == "GET")
+    {
+        render("template4.php");
+    }
+    else if($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        $ipopulation = $_POST["ipopulation"];
+        $iarea = $_POST["iarea"];
+        $itemp = $_POST["itemp"];
+        $iincome = $_POST["iincome"];
+        
+        $xpopulation = $_POST["xpopulation"];
+        $xarea = $_POST["xarea"];
+        $xtemp = $_POST["xtemp"];
+        $xincome = $_POST["xincome"];
+        
+        $apopulation = 6265634;
+        $aarea = 75885;
+        $atemp = 51.9;
+        $aincome = 50473;
+        
+            if (preg_match("/^\d+.\d+$/", $xpopulation) != true)
+            {
+                if (preg_match("/^.\d+$/", $xpopulation) != true)
+                {
+                    if (preg_match("/^\d+$/", $xpopulation) != true)
+                    {
+                        apologize("Please input a positive number for ideal population.");
+                    }
+                }
+            }
+        
+        if ($xpopulation < 0)
+        {
+            apologize("Please input a positive number for ideal population.");
+        }
+        
+            if (preg_match("/^\d+.\d+$/", $xarea) != true)
+            {
+                if (preg_match("/^.\d+$/", $xarea) != true)
+                {
+                    if (preg_match("/^\d+$/", $xarea) != true)
+                    {
+                        apologize("Please input a positive number for ideal area.");
+                    }
+                }
+            }
+        
+        
+        if ($xarea < 0)
+        {
+            apologize("Please input a positive number for ideal area.");
+        }
+        
+            if (preg_match("/^\d+.\d+$/", $xtemp) != true)
+            {
+                if (preg_match("/^.\d+$/", $xtemp) != true)
+                {
+                    if (preg_match("/^\d+$/", $xtemp) != true)
+                    {
+                        apologize("Please input a positive number for ideal temperature.");
+                    }
+                }
+            }
+        
+        
+        if ($xtemp < 0)
+        {
+            apologize("Please input a positive number for ideal temperature.");
+        }
+        
+            if (preg_match("/^\d+.\d+$/", $xincome) != true)
+            {
+                if (preg_match("/^.\d+$/", $xincome) != true)
+                {
+                    if (preg_match("/^\d+$/", $xincome) != true)
+                    {
+                        apologize("Please input a positive number for ideal income.");
+                    }
+                }
+            }
+        
+        
+        if ($xincome < 0)
+        {
+            apologize("Please input a positive number for ideal income.");
+        }
+        
+        if ($ipopulation < 0 || $ipopulation > 10)
+        {
+            apologize("Make sure your population importance is between 0 and 10.");
+        }
+        else if ($iarea < 0 || $iarea > 10)
+        {
+            apologize("Make sure your area importance is between 0 and 10.");
+        }
+        else if ($itemp < 0 || $itemp > 10)
+        {
+            apologize("Make sure your average temperature importance is between 0 and 10.");
+        }
+        else if ($iincome < 0 || $iincome > 10)
+        {
+            apologize("Make sure your income importance is between 0 and 10.");
+        }
+        
+        if (preg_match("/^\d+$/", $ipopulation) != true || preg_match("/^\d+$/", $iarea) != true || preg_match("/^\d+$/", $iarea) != true || preg_match("/^\d+$/", $iincome) != true)
+        {
+            apologize("All importance numbers must be integers.");
+        }
+        
+        render("template5.php", ["ipopulation" => $ipopulation, "iarea" => $iarea, "itemp" => $itemp, "iincome" => $iincome, "xpopulation" => $xpopulation, "xarea" => $xarea, "xtemp" => $xtemp, "xincome" => $xincome, "apopulation" => $apopulation, "aarea" => $aarea, "atemp" => $atemp, "aincome" => $aincome]);
+    }  
+?>
