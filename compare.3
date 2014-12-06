@@ -1,0 +1,62 @@
+<?php
+
+    /**
+     *index.php
+     *CS50 2014 Final
+     *
+     *Jake Morrissey
+     *jakemorrissey@college.harvard.edu
+     *
+     *main page, displays portfolio and links
+     */
+
+    // configuration
+    require("../includes/config.php"); 
+    
+    if($_SERVER["REQUEST_METHOD"] == "GET")
+    {
+        $rows1 = query("SELECT name FROM states WHERE 1");
+        
+        $positions = [];
+        foreach($rows1 as $row1)
+        {
+            $positions[] = [
+                "name" => $row1["name"]
+            ];
+        }
+        
+        render("template2.php", ["positions" => $positions, "title" => "Compare"]);
+    }
+    else if($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        $name = $_POST["nameselect"];
+        $name2 = $_POST["nameselect2"];
+        
+        $ipopulation = $_POST["ipopulation"];
+        $iarea = $_POST["iarea"];
+        $itemp = $_POST["itemp"];
+        $iincome = $_POST["iincome"];
+        $icoast = $_POST["icoast"];
+        
+        $opopulation = $_POST["opopulation"];
+        $oarea = $_POST["oarea"];
+        $otemp = $_POST["otemp"];
+        $oincome = $_POST["oincome"];
+        $ocoast = $_POST["ocoast"];
+        
+        if (empty($name) || empty($name2))
+        {
+            apologize("Please select two states.");
+        }
+        else if($name == $name2)
+        {
+            apologize("Please select two different states.");
+        }       
+        else
+        {
+            $rows = query("SELECT * FROM states WHERE name = ?", $name);
+            $rows2 = query("SELECT * FROM states WHERE name = ?", $name2);
+            render("template3.php", ["rows" => $rows, "rows2" => $rows2, "ipopulation" => $ipopulation, "iarea" => $iarea, "itemp" => $itemp, "iincome" => $iincome, "icoast" => $icoast, "opopulation" => $opopulation, "oarea" => $oarea, "otemp" => $otemp, "oincome" => $oincome, "ocoast" => $ocoast]);
+        }
+    }    
+?>
