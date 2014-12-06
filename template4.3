@@ -1,0 +1,93 @@
+<form action="ideal.php" method="post">
+    <!--http://demosthenes.info/blog/757/Playing-With-The-HTML5-range-Slider-Input !-->
+    <script>
+    function popoutputUpdate(number)
+    {
+        document.querySelector('.popnumber').value = number;
+    }
+    function areaoutputUpdate(number)
+    {
+        document.querySelector('.areanumber').value = number;
+    }
+    function tempoutputUpdate(number)
+    {
+        document.querySelector('.tempnumber').value = number;
+    }
+    function incomeoutputUpdate(number)
+    {
+        document.querySelector('.incomenumber').value = number;
+    }
+    function coastoutputUpdate(number)
+    {
+        document.querySelector('.coastnumber').value = number;
+    }
+    </script>
+    <fieldset>
+        <div> 
+            <?php
+                $apopulation = 6265634;
+                $aarea = 75885;
+                $atemp = 51.9;
+                $aincome = 50473;
+                $acoast = 251.5;
+            ?>
+            <div>
+                Ideal Population:
+                </br>                
+                <input value=0 name="xpopulation" placeholder="Average: <?php echo($apopulation); ?>" type="text"/>
+            </div>
+                </br>
+                How important is this factor to you?
+                <input type=range name="ipopulation" value=5 min=0 max=10 id=popfader step=1 onchange="popoutputUpdate(this.value)">
+                <output for=popfader class=popnumber>5</output>
+            </br>
+            </br>
+            <div>
+                Ideal Area (square miles):
+                </br>
+                <input value=0 name="xarea" placeholder="Average: <?php echo($aarea); ?>" type="text"/>
+            </div>
+                </br>
+                How important is this factor to you?
+                <input type=range name="iarea" value=5 min=0 max=10 id=areafader step=1 onchange="areaoutputUpdate(this.value)">
+                <output for=areafader class=areanumber>5</output>    
+            </br>
+            </br>
+            <div>
+                Ideal Average Temperature (&#169;F):
+                </br>
+                <input value=0 name="xtemp" placeholder="Average: <?php echo($atemp); ?>" type="text"/>
+            </div>   
+                </br>          
+                How important is this factor to you?
+                <input type=range name="itemp" value=5 min=0 max=10 id=tempfader step=1 onchange="tempoutputUpdate(this.value)">
+                <output for=tempfader class=tempnumber>5</output>
+            </br>
+            </br>
+            <div>
+                Ideal Median Household Income:
+                </br>                
+                <input value=0 name="xincome" placeholder="Average: <?php echo($aincome); ?>" type="text"/>
+            </div>
+                </br>
+                How important is this factor to you?
+                <input type=range name="iincome" value=5 min=0 max=10 id=incomefader step=1 onchange="incomeoutputUpdate(this.value)">
+                <output for=incomefader class=incomenumber>5</output>      
+            </br>
+            </br>
+             <div>
+                Ideal Coastline (miles):
+                </br>
+                <input value=0 name="xcoast" placeholder="Average: <?php echo($acoast); ?>" type="text"/>
+            </div>
+                </br>
+                How important is this factor to you?
+                <input type=range name="icoast" value=5 min=0 max=10 id=coastfader step=1 onchange="coastoutputUpdate(this.value)">
+                <output for=coastfader class=coastnumber>5</output>         
+        </div>
+        </br>
+        <div>
+            <button type="submit">Go!</button>
+        </div>
+    </fieldset>
+</form>
