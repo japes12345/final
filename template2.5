@@ -1,0 +1,127 @@
+<form action="compare.php" method="post">
+    <!--http://demosthenes.info/blog/757/Playing-With-The-HTML5-range-Slider-Input !-->
+    <script>
+    function popoutputUpdate(number)
+    {
+        document.querySelector('.popnumber').value = number;
+    }
+    function areaoutputUpdate(number)
+    {
+        document.querySelector('.areanumber').value = number;
+    }
+    function tempoutputUpdate(number)
+    {
+        document.querySelector('.tempnumber').value = number;
+    }
+    function incomeoutputUpdate(number)
+    {
+        document.querySelector('.incomenumber').value = number;
+    }
+    function coastoutputUpdate(number)
+    {
+        document.querySelector('.coastnumber').value = number;
+    }
+    </script>
+    <fieldset>
+        </br>
+        <div> 
+            First state?
+            <select name="nameselect">
+                <option value=""></option>
+                <?php foreach ($positions as $position): ?>
+                     <option value="<?=$position['name']?>"> <?=$position["name"]?></option>
+                <?php endforeach ?>
+            </select>   
+              
+            Second state?
+            <select name="nameselect2">
+                <option value=""></option>
+                <?php foreach ($positions as $position): ?>
+                   <option value="<?=$position['name']?>"> <?=$position["name"]?></option>
+                <?php endforeach ?>
+            </select>
+            
+            </br>
+            </br>
+            </br>
+            <div>
+                Population
+                </br>
+                </br>
+                Which is better?
+                </br>
+                <input type="radio" name="opopulation" value="high" checked>High
+                <input type="radio" name="opopulation" value="low">Low
+            </div>
+            </br>
+                How important is this factor to you?
+                <input type=range name="ipopulation" value=5 min=0 max=10 id=popfader step=1 onchange="popoutputUpdate(this.value)">
+                <output for=popfader class=popnumber>5</output>
+            </br>
+            </br>
+            <div>
+                Area (square miles)
+                </br>
+                </br>
+                Which is better?
+                </br>
+                <input type="radio" name="oarea" value="high" checked>High
+                <input type="radio" name="oarea" value="low">Low
+            </div>
+            </br>
+                How important is this factor to you?
+                <input type=range name="iarea" value=5 min=0 max=10 id=areafader step=1 onchange="areaoutputUpdate(this.value)">
+                <output for=areafader class=areanumber>5</output>
+            </br>
+            </br>
+            <div>
+                Average Temperature (F)
+                </br>
+                </br>
+                Which is better?
+                </br>
+                <input type="radio" name="otemp" value="high" checked>High
+                <input type="radio" name="otemp" value="low">Low
+            </div>
+            </br>
+                How important is this factor to you?
+                <input type=range name="itemp" value=5 min=0 max=10 id=tempfader step=1 onchange="tempoutputUpdate(this.value)">
+                <output for=tempfader class=tempnumber>5</output>        
+            </br>
+            </br>
+            <div>
+                Median Household Income
+                </br>
+                </br>
+                Which is better?
+                </br>
+                <input type="radio" name="oincome" value="high" checked>High
+                <input type="radio" name="oincome" value="low">Low
+            </div>
+            </br>
+                How important is this factor to you? 
+                <input type=range name="iincome" value=5 min=0 max=10 id=incomefader step=1 onchange="incomeoutputUpdate(this.value)">
+                <output for=incomefader class=incomenumber>5</output>             
+            </br>
+            </br>
+            <div>
+                Coastline (miles)
+                </br>
+                </br>
+                Which is better?
+                </br>
+                <input type="radio" name="ocoast" value="high" checked>High
+                <input type="radio" name="ocoast" value="low">Low
+            </div>
+            </br>
+                Coastline Importance: 
+                <input type=range name="icoast" value=5 min=0 max=10 id=coastfader step=1 onchange="coastoutputUpdate(this.value)">
+                <output for=coastfader class=coastnumber>5</output>            
+            </br>               
+        </div>
+        </br>
+        <div>
+            <button type="submit">Compare!</button>
+        </div>
+    </fieldset>
+</form>
