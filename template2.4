@@ -1,0 +1,69 @@
+<form action="compare.php" method="post">
+    <fieldset>
+        </br>
+        <div> 
+            First state?
+            <select name="nameselect">
+                <option value=""></option>
+                <?php foreach ($positions as $position): ?>
+                     <option value="<?=$position['name']?>"> <?=$position["name"]?></option>
+                <?php endforeach ?>
+            </select>   
+              
+            Second state?
+            <select name="nameselect2">
+                <option value=""></option>
+                <?php foreach ($positions as $position): ?>
+                   <option value="<?=$position['name']?>"> <?=$position["name"]?></option>
+                <?php endforeach ?>
+            </select>
+            
+            </br>
+            </br>
+            <div>
+                Population Importance: 
+                <input value=5 name="ipopulation" placeholder="0-10" type="text"/>
+            </div>
+                Which is better?
+                </br>
+                <input type="radio" name="opopulation" value="high" checked>High
+                <input type="radio" name="opopulation" value="low">Low
+            </br>
+            </br>
+            <div>
+                Area Importance: 
+                <input value=5 name="iarea" placeholder="0-10" type="text"/>
+            </div>
+                Which is better?
+                </br>
+                <input type="radio" name="oarea" value="high" checked>High
+                <input type="radio" name="oarea" value="low">Low
+            </br>
+            </br>
+            <div>
+                Average Temperature Importance: 
+                <input value=5 name="itemp" placeholder="0-10" type="text"/>
+            </div>
+                Which is better?
+                </br>
+                <input type="radio" name="otemp" value="high" checked>High
+                <input type="radio" name="otemp" value="low">Low
+            </br>
+            <div>
+                Income Importance: 
+                <input value=5 name="iincome" placeholder="0-10" type="text"/>
+            </div>
+                Which is better?
+                </br>
+                <input type="radio" name="oincome" value="high" checked>High
+                <input type="radio" name="oincome" value="low">Low
+            </br>
+            </br>
+                
+        </div>
+        </br>
+        <div>
+            <button type="submit">Compare!</button>
+        </div>
+    </fieldset>
+</form>
