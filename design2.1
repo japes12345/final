@@ -1,0 +1,46 @@
+<div id="doc">
+<h1 class=bolds class=toppp>Design: How State Compare works!</h1>
+<ul class=intro>
+    <pre>     </pre>To summarize, our project uses three main folders: includes, public, and templates.
+    <li><span class=bolds>INCLUDES</span>: config.php, constants.php, functions.php</li>
+    <li><span class=bolds>PUBLIC</span>: css folder, fonts folder, img folder, js folder, compare.php, design.php, documentation.php,
+     ideal.php, index.php, theboys.php</li>
+    <li><span class=bolds>TEMPLATES</span>: apology.php, design2.php, documentation2.php, dump.php, footer.php, header.php,
+    template.php, template2.php, template3.php, template4.php, template5.php, theboys2.php</li>
+</ul>
+<ul>
+    <hr>
+    <h2>Includes</h2>
+    <li class=bolds>config.php</li>
+    <ul>
+        <li>Borrowed from pset7, includes constants.php and functions.php, and displays errors</li>
+    </ul>
+    <li class=bolds>constants.php</li>
+    <ul>
+        <li>Global constants, such as login for server and phpmyadmin</li>
+    </ul>
+    <li class=bolds>functions.php</li>
+    <ul>
+        <li>Various functions to assist throughout the website, such as query("SQL commands") borrowed from
+        pset7, apologize and dump as well as redirect and render.</li>
+    </ul>
+    <hr>
+    <h2>Public</h2>
+    <li class=bolds>css folder (styles.css)</li>
+    <ul>
+        <li>All of our css (styling) for the entire project, handles coloring and formatting of our output
+        tables, bolding of the words in this document and others, and basic formatting of the homepage
+        and padding etc., lots of odds and ends</li>
+    </ul>
+    <li class=bolds>fonts and js folder</li>
+    <ul>
+        <li>No significant files, just contain the fonts we use etc.</li>
+    </ul>
+    <li class=bolds>compare.php</li>
+    <ul>
+        <li>The controller for template2.php and template3.php, determines whether a browser is using
+        the GET or POST method and executes an SQL query that grabs all the necessary information from
+        the database and passes it to template2 and 3 when it renders them.</li> 
+    </ul>
+    
+</ul>
