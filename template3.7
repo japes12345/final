@@ -1,0 +1,831 @@
+<!--
+    -JPaul Meyer and Jake Morrissey
+    -template3.php
+    -
+    -CS50
+    -State Compare
+    -
+    -template for compare output table
+!-->
+
+<div>
+    </br>
+    <table class=comparetable>
+        <?php
+            // variables for raw score and weighted score
+            $counter = 0;
+            $counter2 = 0;
+            $weight = 0;
+            $weight2 = 0;
+            
+            // POPULATION:            
+            // variables for population color
+            $color1;
+            $color12;
+            // if importance ranking is > 0
+            if ($ipopulation > 0)
+            {
+                // if preference is high
+                if ($opopulation == "high")
+                {
+                    // if first state > second state
+                    if ($rows[0]["population"] > $rows2[0]["population"])
+                    {
+                        // first state gets green color
+                        $color1 = "option-a";                      
+                        // second state gets red color
+                        $color12 = "option-b";
+                        // first state's raw score increases by 1
+                        $counter = $counter + 1;
+                    }
+                    // if second state > first state
+                    else if ($rows[0]["population"] < $rows2[0]["population"])
+                    {
+                        // first state gets red color
+                        $color1 = "option-b";
+                        // second state gets green color
+                        $color12 = "option-a";
+                        // second state's raw score increases by 1
+                        $counter2 = $counter2 + 1;
+                    }
+                    // else states are equal
+                    else 
+                    {
+                        // both states get gold color
+                        $color1 = "option-c";
+                        $color12 = "option-c";
+                        // both states' raw score increases by 0.5
+                        $counter = $counter + 0.5;
+                        $counter2 = $counter2 + 0.5;
+                    }
+                }
+                // if preference is low
+                else if ($opopulation == "low")
+                {
+                    // if first state > second state
+                    if ($rows[0]["population"] > $rows2[0]["population"])
+                    {
+                        // first state gets red color
+                        $color1 = "option-b";
+                        // second state gets green color
+                        $color12 = "option-a";
+                        // second state's raw score increases by 1
+                        $counter2 = $counter2 + 1;
+                    }
+                    // if first state < second state
+                    else if ($rows[0]["population"] < $rows2[0]["population"])
+                    {
+                        // first state gets green color
+                        $color1 = "option-a";
+                        // second state gets red color
+                        $color12 = "option-b";
+                        // first state's raw score increases by 1
+                        $counter = $counter + 1;
+                    }
+                    // else states are equal
+                    else 
+                    {
+                        // both states get gold color
+                        $color1 = "option-c";
+                        $color12 = "option-c";
+                        // both states' raw score increases by 0.5
+                        $counter = $counter + 0.5;
+                        $counter2 = $counter2 + 0.5;
+                    }
+                }
+                
+                // variable for weighted score
+                $addpopulation = 0;
+                
+                // if both states have amount > 0
+                if ($rows[0]["population"] > 0 || $rows2[0]["population"] > 0)
+                {
+                    // change weighted score variable
+                    $addpopulation = ($rows[0]["population"] - $rows2[0]["population"])/(2 * ($rows[0]["population"] + $rows2[0]["population"])) * 100 * $ipopulation;
+                }
+                // if preference is high
+                if ($opopulation == "high")
+                {
+                    // if weighted score variable > 0
+                    if ($addpopulation > 0)
+                    {
+                        // increase first state's weighted score
+                        $weight = $weight + $addpopulation;
+                    }
+                    // if weighted score variable < 0
+                    else if ($addpopulation < 0)
+                    {
+                        // increase second state's weighted score
+                        $weight2 = $weight2 - $addpopulation;
+                    }
+                }
+                // if preference is low
+                else if ($opopulation == "low")
+                {
+                    // if weighted score variable > 0
+                    if ($addpopulation > 0)
+                    {
+                        // increase second state's weighted score
+                        $weight2 = $weight2 + $addpopulation;
+                    }
+                    // if weighted score variable < 0
+                    else if ($addpopulation < 0)
+                    {
+                        // increase first state's weighted score
+                        $weight = $weight - $addpopulation;
+                    }
+                }
+            }
+            
+            // AREA:            
+            // variables for area color
+            $color2;
+            $color22;
+            // if importance ranking is > 0
+            if ($iarea > 0)
+            {
+                // if preference is high
+                if ($oarea == "high")
+                {
+                    // if first state > second state
+                    if ($rows[0]["area"] > $rows2[0]["area"])
+                    {
+                        // first state gets green color
+                        $color2 = "option-a";                      
+                        // second state gets red color
+                        $color22 = "option-b";
+                        // first state's raw score increases by 1
+                        $counter = $counter + 1;
+                    }
+                    // if second state > first state
+                    else if ($rows[0]["area"] < $rows2[0]["area"])
+                    {
+                        // first state gets red color
+                        $color2 = "option-b";
+                        // second state gets green color
+                        $color22 = "option-a";
+                        // second state's raw score increases by 1
+                        $counter2 = $counter2 + 1;
+                    }
+                    // else states are equal
+                    else 
+                    {
+                        // both states get gold color
+                        $color2 = "option-c";
+                        $color22 = "option-c";
+                        // both states' raw score increases by 0.5
+                        $counter = $counter + 0.5;
+                        $counter2 = $counter2 + 0.5;
+                    }
+                }
+                // if preference is low
+                else if ($oarea == "low")
+                {
+                    // if first state > second state
+                    if ($rows[0]["area"] > $rows2[0]["area"])
+                    {
+                        // first state gets red color
+                        $color2 = "option-b";
+                        // second state gets green color
+                        $color22 = "option-a";
+                        // second state's raw score increases by 1
+                        $counter2 = $counter2 + 1;
+                    }
+                    // if first state < second state
+                    else if ($rows[0]["area"] < $rows2[0]["area"])
+                    {
+                        // first state gets green color
+                        $color2 = "option-a";
+                        // second state gets red color
+                        $color22 = "option-b";
+                        // first state's raw score increases by 1
+                        $counter = $counter + 1;
+                    }
+                    // else states are equal
+                    else 
+                    {
+                        // both states get gold color
+                        $color2 = "option-c";
+                        $color22 = "option-c";
+                        // both states' raw score increases by 0.5
+                        $counter = $counter + 0.5;
+                        $counter2 = $counter2 + 0.5;
+                    }
+                }
+                
+                // variable for weighted score
+                $addarea = 0;
+                
+                // if both states have amount > 0
+                if ($rows[0]["area"] > 0 || $rows2[0]["area"] > 0)
+                {
+                    // change weighted score variable
+                    $addarea = ($rows[0]["area"] - $rows2[0]["area"])/(2 * ($rows[0]["area"] + $rows2[0]["area"])) * 100 * $iarea;
+                }
+                // if preference is high
+                if ($oarea == "high")
+                {
+                    // if weighted score variable > 0
+                    if ($addarea > 0)
+                    {
+                        // increase first state's weighted score
+                        $weight = $weight + $addarea;
+                    }
+                    // if weighted score variable < 0
+                    else if ($addarea < 0)
+                    {
+                        // increase second state's weighted score
+                        $weight2 = $weight2 - $addarea;
+                    }
+                }
+                // if preference is low
+                else if ($oarea == "low")
+                {
+                    // if weighted score variable > 0
+                    if ($addarea > 0)
+                    {
+                        // increase second state's weighted score
+                        $weight2 = $weight2 + $addarea;
+                    }
+                    // if weighted score variable < 0
+                    else if ($addarea < 0)
+                    {
+                        // increase first state's weighted score
+                        $weight = $weight - $addarea;
+                    }
+                }
+            }
+            
+            // TEMPERATURE:            
+            // variables for temperature color
+            $color3;
+            $color32;
+            // if importance ranking is > 0
+            if ($itemp > 0)
+            {
+                // if preference is high
+                if ($otemp == "high")
+                {
+                    // if first state > second state
+                    if ($rows[0]["temp"] > $rows2[0]["temp"])
+                    {
+                        // first state gets green color
+                        $color3 = "option-a";                      
+                        // second state gets red color
+                        $color32 = "option-b";
+                        // first state's raw score increases by 1
+                        $counter = $counter + 1;
+                    }
+                    // if second state > first state
+                    else if ($rows[0]["temp"] < $rows2[0]["temp"])
+                    {
+                        // first state gets red color
+                        $color3 = "option-b";
+                        // second state gets green color
+                        $color32 = "option-a";
+                        // second state's raw score increases by 1
+                        $counter2 = $counter2 + 1;
+                    }
+                    // else states are equal
+                    else 
+                    {
+                        // both states get gold color
+                        $color3 = "option-c";
+                        $color32 = "option-c";
+                        // both states' raw score increases by 0.5
+                        $counter = $counter + 0.5;
+                        $counter2 = $counter2 + 0.5;
+                    }
+                }
+                // if preference is low
+                else if ($otemp == "low")
+                {
+                    // if first state > second state
+                    if ($rows[0]["temp"] > $rows2[0]["temp"])
+                    {
+                        // first state gets red color
+                        $color3 = "option-b";
+                        // second state gets green color
+                        $color32 = "option-a";
+                        // second state's raw score increases by 1
+                        $counter2 = $counter2 + 1;
+                    }
+                    // if first state < second state
+                    else if ($rows[0]["temp"] < $rows2[0]["temp"])
+                    {
+                        // first state gets green color
+                        $color3 = "option-a";
+                        // second state gets red color
+                        $color32 = "option-b";
+                        // first state's raw score increases by 1
+                        $counter = $counter + 1;
+                    }
+                    // else states are equal
+                    else 
+                    {
+                        // both states get gold color
+                        $color3 = "option-c";
+                        $color32 = "option-c";
+                        // both states' raw score increases by 0.5
+                        $counter = $counter + 0.5;
+                        $counter2 = $counter2 + 0.5;
+                    }
+                }
+                
+                // variable for weighted score
+                $addtemp = 0;
+                
+                // if both states have amount > 0
+                if ($rows[0]["temp"] > 0 || $rows2[0]["temp"] > 0)
+                {
+                    // change weighted score variable
+                    $addtemp = ($rows[0]["temp"] - $rows2[0]["temp"])/(2 * ($rows[0]["temp"] + $rows2[0]["temp"])) * 100 * $itemp;
+                }
+                // if preference is high
+                if ($otemp == "high")
+                {
+                    // if weighted score variable > 0
+                    if ($addtemp > 0)
+                    {
+                        // increase first state's weighted score
+                        $weight = $weight + $addtemp;
+                    }
+                    // if weighted score variable < 0
+                    else if ($addtemp < 0)
+                    {
+                        // increase second state's weighted score
+                        $weight2 = $weight2 - $addtemp;
+                    }
+                }
+                // if preference is low
+                else if ($otemp == "low")
+                {
+                    // if weighted score variable > 0
+                    if ($addtemp > 0)
+                    {
+                        // increase second state's weighted score
+                        $weight2 = $weight2 + $addtemp;
+                    }
+                    // if weighted score variable < 0
+                    else if ($addtemp < 0)
+                    {
+                        // increase first state's weighted score
+                        $weight = $weight - $addtemp;
+                    }
+                }
+            }
+            
+            // INCOME:            
+            // variables for income color
+            $color4;
+            $color42;
+            // if importance ranking is > 0
+            if ($iincome > 0)
+            {
+                // if preference is high
+                if ($oincome == "high")
+                {
+                    // if first state > second state
+                    if ($rows[0]["income"] > $rows2[0]["income"])
+                    {
+                        // first state gets green color
+                        $color4 = "option-a";                      
+                        // second state gets red color
+                        $color42 = "option-b";
+                        // first state's raw score increases by 1
+                        $counter = $counter + 1;
+                    }
+                    // if second state > first state
+                    else if ($rows[0]["income"] < $rows2[0]["income"])
+                    {
+                        // first state gets red color
+                        $color4 = "option-b";
+                        // second state gets green color
+                        $color42 = "option-a";
+                        // second state's raw score increases by 1
+                        $counter2 = $counter2 + 1;
+                    }
+                    // else states are equal
+                    else 
+                    {
+                        // both states get gold color
+                        $color4 = "option-c";
+                        $color42 = "option-c";
+                        // both states' raw score increases by 0.5
+                        $counter = $counter + 0.5;
+                        $counter2 = $counter2 + 0.5;
+                    }
+                }
+                // if preference is low
+                else if ($oincome == "low")
+                {
+                    // if first state > second state
+                    if ($rows[0]["income"] > $rows2[0]["income"])
+                    {
+                        // first state gets red color
+                        $color4 = "option-b";
+                        // second state gets green color
+                        $color42 = "option-a";
+                        // second state's raw score increases by 1
+                        $counter2 = $counter2 + 1;
+                    }
+                    // if first state < second state
+                    else if ($rows[0]["income"] < $rows2[0]["income"])
+                    {
+                        // first state gets green color
+                        $color4 = "option-a";
+                        // second state gets red color
+                        $color42 = "option-b";
+                        // first state's raw score increases by 1
+                        $counter = $counter + 1;
+                    }
+                    // else states are equal
+                    else 
+                    {
+                        // both states get gold color
+                        $color4 = "option-c";
+                        $color42 = "option-c";
+                        // both states' raw score increases by 0.5
+                        $counter = $counter + 0.5;
+                        $counter2 = $counter2 + 0.5;
+                    }
+                }
+                
+                // variable for weighted score
+                $addincome = 0;
+                
+                // if both states have amount > 0
+                if ($rows[0]["income"] > 0 || $rows2[0]["income"] > 0)
+                {
+                    // change weighted score variable
+                    $addincome = ($rows[0]["income"] - $rows2[0]["income"])/(2 * ($rows[0]["income"] + $rows2[0]["income"])) * 100 * $iincome;
+                }
+                // if preference is high
+                if ($oincome == "high")
+                {
+                    // if weighted score variable > 0
+                    if ($addincome > 0)
+                    {
+                        // increase first state's weighted score
+                        $weight = $weight + $addincome;
+                    }
+                    // if weighted score variable < 0
+                    else if ($addincome < 0)
+                    {
+                        // increase second state's weighted score
+                        $weight2 = $weight2 - $addincome;
+                    }
+                }
+                // if preference is low
+                else if ($oincome == "low")
+                {
+                    // if weighted score variable > 0
+                    if ($addincome > 0)
+                    {
+                        // increase second state's weighted score
+                        $weight2 = $weight2 + $addincome;
+                    }
+                    // if weighted score variable < 0
+                    else if ($addincome < 0)
+                    {
+                        // increase first state's weighted score
+                        $weight = $weight - $addincome;
+                    }
+                }
+            }
+            
+            // COASTLINE:            
+            // variables for coastline color
+            $color5;
+            $color52;
+            // if importance ranking is > 0
+            if ($icoast > 0)
+            {
+                // if preference is high
+                if ($ocoast == "high")
+                {
+                    // if first state > second state
+                    if ($rows[0]["coast"] > $rows2[0]["coast"])
+                    {
+                        // first state gets green color
+                        $color5 = "option-a";                      
+                        // second state gets red color
+                        $color52 = "option-b";
+                        // first state's raw score increases by 1
+                        $counter = $counter + 1;
+                    }
+                    // if second state > first state
+                    else if ($rows[0]["coast"] < $rows2[0]["coast"])
+                    {
+                        // first state gets red color
+                        $color5 = "option-b";
+                        // second state gets green color
+                        $color52 = "option-a";
+                        // second state's raw score increases by 1
+                        $counter2 = $counter2 + 1;
+                    }
+                    // else states are equal
+                    else 
+                    {
+                        // both states get gold color
+                        $color5 = "option-c";
+                        $color52 = "option-c";
+                        // both states' raw score increases by 0.5
+                        $counter = $counter + 0.5;
+                        $counter2 = $counter2 + 0.5;
+                    }
+                }
+                // if preference is low
+                else if ($ocoast == "low")
+                {
+                    // if first state > second state
+                    if ($rows[0]["coast"] > $rows2[0]["coast"])
+                    {
+                        // first state gets red color
+                        $color5 = "option-b";
+                        // second state gets green color
+                        $color52 = "option-a";
+                        // second state's raw score increases by 1
+                        $counter2 = $counter2 + 1;
+                    }
+                    // if first state < second state
+                    else if ($rows[0]["coast"] < $rows2[0]["coast"])
+                    {
+                        // first state gets green color
+                        $color5 = "option-a";
+                        // second state gets red color
+                        $color52 = "option-b";
+                        // first state's raw score increases by 1
+                        $counter = $counter + 1;
+                    }
+                    // else states are equal
+                    else 
+                    {
+                        // both states get gold color
+                        $color5 = "option-c";
+                        $color52 = "option-c";
+                        // both states' raw score increases by 0.5
+                        $counter = $counter + 0.5;
+                        $counter2 = $counter2 + 0.5;
+                    }
+                }
+                
+                // variable for weighted score
+                $addcoast = 0;
+                
+                // if both states have amount > 0
+                if ($rows[0]["coast"] > 0 || $rows2[0]["coast"] > 0)
+                {
+                    // change weighted score variable
+                    $addcoast = ($rows[0]["coast"] - $rows2[0]["coast"])/(2 * ($rows[0]["coast"] + $rows2[0]["coast"])) * 100 * $icoast;
+                }
+                // if preference is high
+                if ($ocoast == "high")
+                {
+                    // if weighted score variable > 0
+                    if ($addcoast > 0)
+                    {
+                        // increase first state's weighted score
+                        $weight = $weight + $addcoast;
+                    }
+                    // if weighted score variable < 0
+                    else if ($addcoast < 0)
+                    {
+                        // increase second state's weighted score
+                        $weight2 = $weight2 - $addcoast;
+                    }
+                }
+                // if preference is low
+                else if ($ocoast == "low")
+                {
+                    // if weighted score variable > 0
+                    if ($addcoast > 0)
+                    {
+                        // increase second state's weighted score
+                        $weight2 = $weight2 + $addcoast;
+                    }
+                    // if weighted score variable < 0
+                    else if ($addcoast < 0)
+                    {
+                        // increase first state's weighted score
+                        $weight = $weight - $addcoast;
+                    }
+                }
+            }
+            
+            // RAW SCORE:
+            // variables for raw score colors
+            $colorx;
+            $colorx2;
+            
+            // if first state's raw score > second state's raw score
+            if ($counter > $counter2)
+            {
+                // first state's table cell is green
+                $colorx = "option-ax";
+                // second state's table cell is red
+                $colorx2 = "option-bx";
+            }
+            // if second state's raw score > first state's raw score
+            else if ($counter < $counter2)
+            {
+                // first state's table cell is red
+                $colorx = "option-bx";
+                // second state's table cell is green
+                $colorx2 = "option-ax";
+            }
+            // else states are equal
+            else
+            {
+                // both states' table cell is gold
+                $colorx = "option-cx";
+                $colorx2 = "option-cx";
+            }
+            
+            // WEIGHTED SCORE:
+            // if both weighted scores are zero
+            if ($weight == 0 && $weight2 == 0)
+            {
+                // 50-50 split of percentage
+                $weight = 50;
+                $weight2 = 50;
+            }
+            else
+            {
+                // converts weight scores to percentages
+                $weightcopy = $weight;
+                $weight = 100 * ($weight / ($weight + $weight2));
+                $weight2 = 100 * ($weight2 / ($weightcopy + $weight2));
+            }
+            
+            // variables for weighted score color
+            $colory;
+            $colory2;
+            
+            // if first state's weighted score > second state's weighted score
+            if ($weight > $weight2)
+            {
+                // first state's table cell is green
+                $colory = "option-ax";
+                // second state's table cell is red
+                $colory2 = "option-bx";
+            }
+            // if second state's weighted score > first state's weighted score
+            else if ($weight < $weight2)
+            {
+                // first state's table cell is red
+                $colory = "option-bx";
+                // second state's table cell is green
+                $colory2 = "option-ax";
+            }
+            // else states are equal
+            else
+            {
+                // both states' table cell is gold
+                $colory = "option-cx";
+                $colory2 = "option-cx";
+            }
+        ?>
+        
+        <!-- PRINTS THE TABLE: -->       
+        <!-- state row !-->
+        <tr>
+            <!-- "State" cell !-->
+            <td class=topcontentbox> State </td>
+            <?php
+                // first state
+                print("<td class=topcontentbox>" . $rows[0]["name"] . "</td>");
+                // second state
+                print("<td class=topcontentbox>" . $rows2[0]["name"] . "</td>");          
+            ?>
+        </tr>
+        
+        <?php
+            // population row if importance > 0
+            if ($ipopulation > 0)
+            {
+                print("<tr>");
+                // "Population" cell
+                print("<td class=topcontentbox>" . "Population" . "</td>");
+                // first state's population
+                print("<td class=$color1>" . $rows[0]['population'] . '</td>');
+                // second state's population
+                print("<td class=$color12>" . $rows2[0]['population'] . '</td>');
+                print("</tr>");
+            }
+            
+            // area row if importance > 0
+            if ($iarea > 0)
+            {
+                print("<tr>");
+                // "Area" cell
+                print("<td class=topcontentbox>" . "Area" . "</td>");
+                // first state's area
+                print("<td class=$color2>" . $rows[0]['area'] . '</td>');
+                // second state's area
+                print("<td class=$color22>" . $rows2[0]['area'] . '</td>');
+                print("</tr>");
+            }
+            
+            // temperature row if importance > 0
+            if ($itemp > 0)
+            {
+                print("<tr>");
+                // "Temperature" cell
+                print("<td class=topcontentbox>" . "Temperature" . "</td>");
+                // first state's temp
+                print("<td class=$color3>" . $rows[0]['temp'] . '</td>');
+                // second state's temp
+                print("<td class=$color32>" . $rows2[0]['temp'] . '</td>');
+                print("</tr>");
+            }
+            
+            // income row if importance > 0
+            if ($iincome > 0)
+            {
+                print("<tr>");
+                // "Income" cell
+                print("<td class=topcontentbox>" . "Income" . "</td>");
+                // first state's income
+                print("<td class=$color4>" . $rows[0]['income'] . '</td>');
+                // second state's income
+                print("<td class=$color42>" . $rows2[0]['income'] . '</td>');
+                print("</tr>");
+            }
+            
+            // coastline row if importance > 0
+            if ($icoast > 0)
+            {
+                print("<tr>");
+                // "Coastline" cell
+                print("<td class=topcontentbox>" . "Coastline" . "</td>");
+                // first state's coastline
+                print("<td class=$color5>" . $rows[0]['coast'] . '</td>');
+                // second state's coastline
+                print("<td class=$color52>" . $rows2[0]['coast'] . '</td>');
+                print("</tr>");
+            }
+        ?>
+        
+        <!-- raw score row !-->
+        <tr>
+            <!-- "Raw Score" cell !-->
+            <td class=topcontentbox> Raw Score </td>
+            <?php
+                // first state's raw score
+                print("<td class=$colorx>" . $counter . "</td>");
+                // second state's raw score
+                print("<td class=$colorx2>" . $counter2 . "</td>");          
+            ?>
+        </tr>
+        
+        <!-- weighted score row !-->
+        <tr>
+            <!-- "Weighted Score" cell !-->
+            <td class=topcontentbox> Weighted Score </td>
+            <?php
+                // rounds first state's weighted score to two decimal places
+                if ($weight > 0 && $weight < 0.01)
+                {
+                    $weight = 0.01;
+                }
+                else if ($weight > 49.99 && $weight < 50.00)
+                {
+                    $weight = 49.99;
+                }
+                else if ($weight > 50.00 && $weight < 50.01)
+                {
+                    $weight = 50.01;
+                }
+                else if ($weight > 99.99 &&  $weight < 100.00)
+                {
+                    $weight = 99.99;
+                }
+                
+                // rounds second state's weighted score to two decimal places
+                if ($weight2 > 0 && $weight2 < 0.01)
+                {
+                    $weight2 = 0.01;
+                }
+                else if ($weight2 > 49.99 && $weight2 < 50.00)
+                {
+                    $weight2 = 49.99;
+                }
+                else if ($weight2 > 50.00 && $weight2 < 50.01)
+                {
+                    $weight2 = 50.01;
+                }
+                else if ($weight2 > 99.99 &&  $weight2 < 100.00)
+                {
+                    $weight2 = 99.99;
+                }
+                
+                // first state's weighted score
+                print("<td class=$colory>" . number_format((float)$weight, 2, '.', '') . "%" . "</td>");
+                // second state's weighted score
+                print("<td class=$colory2>" . number_format((float)$weight2, 2, '.', '') . "%" . "</td");
+            ?>
+        <tr>    
+    </table>
+    </div>
+</div>
