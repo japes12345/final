@@ -1,0 +1,22 @@
+<?php
+
+    /**
+     *JPaul Meyer and Jake Morrissey
+     *index.php
+     *
+     *CS50
+     *State Compare
+     *
+     *used for rendering main page
+     */
+
+    // configuration
+    require("../includes/config.php"); 
+    
+    // if request method is get
+    if($_SERVER["REQUEST_METHOD"] == "GET")
+    {
+        // render the home page
+        render("template.php");
+    }
+?>
