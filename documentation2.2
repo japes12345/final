@@ -1,0 +1,98 @@
+<div id="doc">
+    <h1 class=bolds class=toppp>Documentation: How to use State Compare!</h1>
+    <p1 class=intro>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;As of right now, our "State Compare"
+        website is intended to be hosted on the CS50 Appliance. In order for a user to properly 
+        use our website on the CS50 Appliance through vhosts, they will have to follow
+        a few preliminary steps. First, the zipped folder "final", which includes all of our website code,
+        will have to be obtained. This zipped folder then needs to be unzipped in such a way that the
+        "final" folder is located in vhosts (more specifically located within /home/jharvard/vhosts).
+        Then, the user will have to use ensure that all contained folders and files are properly
+        readable, writeable, and executable using chmod if necessary.
+        
+        
+        </br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So, "final" is now inside of a 
+        directory called vhosts. The appliance is configured to serve "virtual hosts" (i.e., websites) out of 
+        the latter. Specifically, if you visit, say, http://final/ using Chrome inside of the appliance, the appliance 
+        is configured to look in ~/vhosts/final/public for that website&#39;s web-accessible files. But for that to work, 
+        we also need to associate the appliance&#39;s own IP address with "final" so that it "resolves" via DNS to it. Rather 
+        than set up a whole DNS server to do that, we can actually edit a file called hosts in a directory called etc.
+        In a terminal window, execute: sudo gedit /etc/hosts in order to run gedit as the appliance&#39;s "superuser" (aka "root") so 
+        that you can edit what is otherwise a read-only file. Carefully add this line at the bottom of that file, which will associate 
+        "final" with the appliance&#39;s "loopback" address (which won&#39;t ever change): 127.0.0.1 final
+        
+        </br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The final step for setup is to construct the
+        SQL database that our website requires. Go to http://pset7/phpmyadmin inside the appliance in order to open
+        access phpMyAdmin. If login is required, the username is jharvard and the password is crimson. Click on phpMyAdmin&#39;s
+        SQL tabe. Next, in gedit, open the file in our "final" folder called "states.sql". Copy the entirety of its text into 
+        the big blank text box on phpMyAdmin. Then click Go. A greenish banner should appear indicating success.
+        In phpMyAdmin&#39;s upper-left corner, there should now be a database called final that includes a table
+        called states. The contents of this table should be filled with information on the population, area, temperature, income, and 
+        coastline of each state.
+        
+        </br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setup for the website should now be complete!
+        Go to http://final/ on Google Chrome in the appliance in order to access the website!
+
+    </br>
+    </br>
+    <p1 class=intro>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In the header of 
+        every page is the State Compare logo and two America images. Clicking on any of
+        these will always bring you to the home page of the site. This home page has links
+        to the main functions of the site, the 'Compare' page and the 'Ideal' page. It also has
+        a brief description of these functions for first-time users.
+    </br>
+    <p1 class=intro>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;State Compare allows users to (you guessed it) compare states in different ways. The first way
+        we offer is a one on one comparison based on our five main factors. These factors are Population, Area,
+        Average Temperature, Median Household Income, and Coastline (any of these factors can easily be omitted by
+        inputting an importance of 0). In 'compare' the user first selects two different states. Then, they select their preferences
+        (for example, a user might want a higher population but a smaller state, and some coastline, but doesn't
+        care how much the median household makes or what the average temperature is). Our website determines which state
+        is 'better' in the user's opinion by giving
+        each of these factors a 'weight' out of 10 for how important any given factor is to the user. The comparison algorithm takes 
+        into account the percent difference between the two different states for each factor.
+        If, for example, the
+        user wants to compare California and Rhode Island, the massive difference in population and area will blow out
+        Rhode Island. Rather than only see that California had more, with the weighted score we can see exactly how much
+        more. Finally, once the user submits the 'compare' input form, our
+        compare algorithm presents them with a nice table, showing which state 'won' in each category, how many category 'wins'
+        each state had (raw score). Finally, the weighted score shows a more accurate outcome of which state, in the user's
+        eyes, is 'better' and by how much. 
+    </p1>
+    </br>
+    <p1 class=intro>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Additionally, State Compare allows users to find their ideal state. Why only find the best of two
+        when you can find the best of all 50 states! Exciting right? 'Ideal' uses the same factors, but lets you
+        input an exact target for each factor. For example, if you want to find a state with a population close to
+        10,000,000 people, with average size, and an average amount of coastline, that is about 65 degrees on average
+        year round, simply enter these values into the input form. Also, you can decide how important each factor is by assigning importance ratings on a scale of 0-10.
+        Our algorithm determines which state is best for you based on these ideal values and importance ratings. The output is a table
+        listing each state in order of how good of a match they are to your preferences. The output
+        is even extremely accessible and easy to understand; each state receives a subrank for each factor, all of which get
+        displayed in the same row as the final rank, so the user can understand where the rank comes from. To summarize,
+        'compare' (in the red and white stripes) allows users to compare states based on whatever end of the spectrum they
+        desire. They can also assign the importance of each attribute, in order to get a comprehensive comparison, outputting which state is
+        'better' and by how much. 'Ideal' uses a similar mechanism to rank all 50 states in order to how close they are
+        to your given 'ideal' statistics for each attribute. This method also incorporates similar importance ratings. We hope for college students to use our website to settle
+        whose home state is the true champion in whatever sense of the word they decide upon.
+    </p1>
+    </br>
+    <p1 class=intro>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;At the bottom of every page, links to
+        'The Boys' can be seen in the Copyright. This page simply displays the 
+        names of the site's two authors and a picture of them. It also displays a short
+        thank you message to CS50. This page is really intended just to show
+        who created the site.
+    </p1>
+    </br>
+    <p1 class=intro>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Also seen a the bottom of every page are links to 
+        'documentation' and 'design'. The 'documentation' link will display the text of this file, outlining
+        the site's documentation. The 'design' link will display a similar page outlining the basic design
+        of each specific file.
+    </p1>
+</div>
