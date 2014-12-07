@@ -1,0 +1,131 @@
+<?php
+
+    /**
+     *JPaul Meyer and Jake Morrissey
+     *ideal.php
+     *
+     *CS50
+     *State Compare
+     *
+     *used for rendering ideal input and output pages
+     */
+
+    // configuration
+    require("../includes/config.php"); 
+    
+    // if request method is get
+    if($_SERVER["REQUEST_METHOD"] == "GET")
+    {
+        // render the input form
+        render("template4.php");
+    }
+    // if request method is post
+    else if($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        // grab all data from form:
+        
+        // importance rating for each factor
+        $ipopulation = $_POST["ipopulation"];
+        $iarea = $_POST["iarea"];
+        $itemp = $_POST["itemp"];
+        $iincome = $_POST["iincome"];
+        $icoast = $_POST["icoast"];
+        
+        // ideal value for each factor
+        $xpopulation = $_POST["xpopulation"];
+        $xarea = $_POST["xarea"];
+        $xtemp = $_POST["xtemp"];
+        $xincome = $_POST["xincome"];
+        $xcoast = $_POST["xcoast"];
+        
+        // average for each factor
+        $apopulation = 6265634;
+        $aarea = 75885;
+        $atemp = 51.9;
+        $aincome = 50473;
+        $acoast = 251.5;
+        
+        // ensures ideal population is non-negative number
+        if (preg_match("/^\d+.\d+$/", $xpopulation) != true)
+        {
+            if (preg_match("/^.\d+$/", $xpopulation) != true)
+            {
+                if (preg_match("/^\d+$/", $xpopulation) != true)
+                {
+                    apologize("Please input a non-negative number for ideal population.");
+                }
+            }
+        }   
+        if ($xpopulation < 0)
+        {
+            apologize("Please input a non-negative number for ideal population.");
+        }
+        
+        // ensures ideal area is non-negative number
+        if (preg_match("/^\d+.\d+$/", $xarea) != true)
+        {
+            if (preg_match("/^.\d+$/", $xarea) != true)
+            {
+                if (preg_match("/^\d+$/", $xarea) != true)
+                {
+                    apologize("Please input a non-negative number for ideal area.");
+                }
+            }
+        } 
+        if ($xarea < 0)
+        {
+            apologize("Please input a non-negative number for ideal area.");
+        }
+        
+        // ensures ideal temperature is non-negative number
+        if (preg_match("/^\d+.\d+$/", $xtemp) != true)
+        {
+            if (preg_match("/^.\d+$/", $xtemp) != true)
+            {
+                if (preg_match("/^\d+$/", $xtemp) != true)
+                {
+                    apologize("Please input a non-negative number for ideal temperature.");
+                }
+            }
+        }   
+        if ($xtemp < 0)
+        {
+            apologize("Please input a non-negative number for ideal temperature.");
+        }
+        
+        // ensures ideal income is non-negative number
+        if (preg_match("/^\d+.\d+$/", $xincome) != true)
+        {
+            if (preg_match("/^.\d+$/", $xincome) != true)
+            {
+                if (preg_match("/^\d+$/", $xincome) != true)
+                {
+                    apologize("Please input a non-negative number for ideal income.");
+                }
+            }
+        }      
+        if ($xincome < 0)
+        {
+            apologize("Please input a non-negative number for ideal income.");
+        }
+        
+        // ensures ideal coastline is non-negative number
+        if (preg_match("/^\d+.\d+$/", $xcoast) != true)
+        {
+            if (preg_match("/^.\d+$/", $xcoast) != true)
+            {
+                if (preg_match("/^\d+$/", $xcoast) != true)
+                {
+                    apologize("Please input a non-negative number for ideal coastline.");
+                }
+            }
+        }     
+        if ($xcoast < 0)
+        {
+            apologize("Please input a non-negative number for ideal coastline.");
+        }
+        
+        // render the output table
+        render("template5.php", ["ipopulation" => $ipopulation, "iarea" => $iarea, "itemp" => $itemp, "iincome" => $iincome, "icoast" => $icoast, "xpopulation" => $xpopulation, "xarea" => $xarea, "xtemp" => $xtemp, "xincome" => $xincome, "xcoast" => $xcoast, "apopulation" => $apopulation, "aarea" => $aarea, "atemp" => $atemp, "aincome" => $aincome, "acoast" => $acoast]);
+    }  
+?>
