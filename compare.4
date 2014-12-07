@@ -1,0 +1,76 @@
+<?php
+
+    /**
+     *JPaul Meyer and Jake Morrissey
+     *compare.php
+     *
+     *CS50
+     *State Compare
+     *
+     *used for rendering compare input and output pages
+     */
+
+    // configuration
+    require("../includes/config.php"); 
+    
+    // if request method is get
+    if($_SERVER["REQUEST_METHOD"] == "GET")
+    {
+        // query names of all states
+        $rows1 = query("SELECT name FROM states WHERE 1");
+        
+        // creates array of all state names
+        $positions = [];
+        foreach($rows1 as $row1)
+        {
+            $positions[] = [
+                "name" => $row1["name"]
+            ];
+        }
+        
+        // render the input form
+        render("template2.php", ["positions" => $positions, "title" => "Compare"]);
+    }
+    // if request method is post
+    else if($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        // grab all data from form:
+        
+        // state names
+        $name = $_POST["nameselect"];
+        $name2 = $_POST["nameselect2"];
+        
+        // importance rating for each factor
+        $ipopulation = $_POST["ipopulation"];
+        $iarea = $_POST["iarea"];
+        $itemp = $_POST["itemp"];
+        $iincome = $_POST["iincome"];
+        $icoast = $_POST["icoast"];
+        
+        // high or low preference for each factor
+        $opopulation = $_POST["opopulation"];
+        $oarea = $_POST["oarea"];
+        $otemp = $_POST["otemp"];
+        $oincome = $_POST["oincome"];
+        $ocoast = $_POST["ocoast"];
+        
+        // ensures two different states are being compared
+        if (empty($name) || empty($name2))
+        {
+            apologize("Please select two states.");
+        }
+        else if($name == $name2)
+        {
+            apologize("Please select two different states.");
+        }       
+        else
+        {
+            // gets data for the two states
+            $rows = query("SELECT * FROM states WHERE name = ?", $name);
+            $rows2 = query("SELECT * FROM states WHERE name = ?", $name2);
+            
+            // render the output table
+            render("template3.php", ["rows" => $rows, "rows2" => $rows2, "ipopulation" => $ipopulation, "iarea" => $iarea, "itemp" => $itemp, "iincome" => $iincome, "icoast" => $icoast, "opopulation" => $opopulation, "oarea" => $oarea, "otemp" => $otemp, "oincome" => $oincome, "ocoast" => $ocoast]);
+        }
+    }    
+?>
