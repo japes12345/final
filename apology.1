@@ -1,0 +1,20 @@
+<!--
+    -JPaul Meyer and Jake Morrissey
+    -apology.php
+    -
+    -CS50
+    -State Compare
+    -
+    -apologize page for user errors
+!-->
+
+<!-- error message !-->
+<p class="lead text-danger">
+    Sorry!
+</p>
+<p class="text-danger">
+    <?= htmlspecialchars($message) ?>
+</p>
+
+<!-- back link !-->
+<a href="javascript:history.go(-1);">Back</a>
