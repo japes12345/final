@@ -1,0 +1,173 @@
+<div id="doc">
+<h1 class=bolds class=toppp>Design: How State Compare works!</h1>
+<ul class=intro>
+    <li>To summarize, our project uses three main folders (includes, public, and templates) as well as a couple other miscellaneous files.
+    The number one explanation for how our code works is in the comments of the code itself, which are generally very
+    thoroughly done.</li>
+    <li>Additional technical explanation for each file can be found on this page.</li>
+    <li><span class=bolds>INCLUDES</span>: config.php, constants.php, functions.php</li>
+    <li><span class=bolds>PUBLIC</span>: css folder, fonts folder, img folder, js folder, compare.php, design.php, documentation.php,
+     ideal.php, index.php, theboys.php</li>
+    <li><span class=bolds>TEMPLATES</span>: apology.php, design2.php, documentation2.php, dump.php, footer.php, header.php,
+    template.php, template2.php, template3.php, template4.php, template5.php, theboys2.php</li>
+    <li><span class=bolds>OTHER</span>: states.csv, states.sql</li>
+</ul>
+<ul>
+    <hr>
+    <h2>Includes</h2>
+    <li class=bolds>config.php</li>
+    <ul>
+        <li>Borrowed from pset7, includes constants.php and functions.php, and displays errors</li>
+    </ul>
+    <li class=bolds>constants.php</li>
+    <ul>
+        <li>Global constants, such as login for server and phpmyadmin</li>
+    </ul>
+    <li class=bolds>functions.php</li>
+    <ul>
+        <li>Various functions to assist throughout the website, such as query("SQL commands") borrowed from
+        pset7, apologize and dump as well as redirect and render.</li>
+    </ul>
+    <hr>
+    <h2>Public</h2>
+    <li class=bolds>css folder (styles.css)</li>
+    <ul>
+        <li>All of our css (styling) for the entire project, handles coloring and formatting of our output
+        tables, bolding of the words in this document and others, and basic formatting of the homepage
+        and padding etc., lots of odds and ends</li>
+    </ul>
+    <li class=bolds>fonts folder</li>
+    <ul>
+        <li>No significant files, just contains the fonts we use etc.</li>
+    </ul>
+    <li class=bolds>img folder</li>
+    <ul>
+        <li>Contains the logo at the top of every page, the logos for Ideal, Compare, and some American flags and such.</li>
+    </ul>
+    <li class=bolds>js folder</li>
+    <ul>
+        <li>The only javascript we used for our project was for the sliders, these files configure basic
+        javascript of the website.</li>
+    </ul>
+    <li class=bolds>index.php</li>
+    <ul>
+        <li>Renders template.php, our homepage after configuring the page by requiring config.php.</li> 
+    </ul>
+    <li class=bolds>compare.php</li>
+    <ul>
+        <li>The controller for template2.php and template3.php, determines whether a browser is using
+        the GET or POST method. If it's GET, then it renders template2.php after using an SQL query to
+        construct a list of state names. If it's POST, it takes all the form data from the posted form
+        and passes those to template3.php and renders that file in order to display the results the user desires.</li> 
+    </ul>
+    <li class=bolds>ideal.php</li>
+    <ul>
+        <li>The controller for template4.php and template5.php, determines whether a browser is using
+        the GET or POST method. If it's GET, it renders template4.php. If it's POST, it grabs all the form data
+        then errorchecks all these inputs to be sure that all inputs are valid and will not crash template5.php.
+        If there are no errors, then it renders template5.php and passes all the values template5 will need.</li> 
+    </ul>
+    <li class=bolds>theboys.php</li>
+    <ul>
+        <li>The controller for theboys2.php, if the browser is using GET it sends the user to theboys2.php to see
+        the creators and copyright owners of the website, J.Paul and Jake!</li> 
+    </ul>
+    <li class=bolds>documentation.php</li>
+    <ul>
+        <li>This is the controller that renders documentation2.php, the php file where we put all our
+        project's documentation</li> 
+    </ul>
+    <li class=bolds>design.php</li>
+    <ul>
+        <li>The controller that renders design2.php, the php file with all of our design details.</li> 
+    </ul>
+    <hr>
+    <h2>Templates</h2>
+    <li class=bolds>apology.php</li>
+    <ul>
+        <li>Whenever the apologize function is called, this template is rendered with the text given
+        to it by apologize("string"). It displays "Sorry!" in red danger text, then the message passed
+        into the apologize() function in red, then offers a back button using the javascript:history.go(-1)
+        function that takes the user back to the prior page that caused the apology to occur. A convenient
+        means of dislaying errors.</li>
+    </ul>
+    <li class=bolds>dump.php</li>
+    <ul>
+        <li>Similar to apologize(), dump() returns the literal content of the variable dump()'d wrapped in
+        'pre' tags so that it isn't interpreted as html or php at all. We used this primarily for debugging.</li>
+    </ul>
+    <li class=bolds>header.php</li>
+    <ul>
+        <li>Header is displayed at the top of every page and is rendered by the render() function in functions.php.
+        It has the open html tag and head tags. Inside the head tag, we link in our stylesheets using link tags,
+        including a 'echo time()' function which prevents the browser from always caching styles.css in case the styling has
+        since changed. It then presents our project's title, configures javascript for any page, closes the
+        head tag and then inside the body tag we have our logos in as links to our homepages along with serving
+        their main purpose of being absolutely beautiful.</li>
+    </ul>
+    <li class=bolds>footer.php</li>
+    <ul>
+        <li>Footer, like header, is rendered by the render() function. Footer also contains hyperlinks
+        that redirect to design.php and documentation.php, where out design and doc pages are. Additionally,
+        footer contains our copyright with an HTML special char and a redirect to theboys.php where a picture
+        of us creators awaits an unsuspecting user.</li>
+    </ul>
+    <li class=bolds>template.php</li>
+    <ul>
+        <li>This page contains all the html for our homepage that isn't in header or footer. This includes the
+        welcome paragraph (wrapped in a 'p' tag) with occasionally bolded text that we wrapped in 'span' tags
+        in order to only make certain regions bolded. After this paragraph, we had a few /br's to seperate our images
+        slightly further from the paragraph for aesthetic reasons. The two pictures that follow are wrapped in 'a'
+        tags and an href='' attribute that redirects to either compare.php or ideal.php respectively. The images were made
+        seperately and their exact pixel width and height (to scale) are specified in attributes of the 'img' tag.
+        Finally, a thank you message is displayed at the bottom of the page.</li>
+    </ul>
+    <li class=bolds>template2.php</li>
+    <ul>
+        <li>Template2 is where a GET request to compare.php leads. Here the user is asked to fill out a
+        selecting the two states they wish to compare, the importance of each attribute using sliders (html)
+        that have auto-updating numbers beneath the slider (javascript 'script' tags configure) along with
+        radio buttons to select whether or not a higher or lower temperature, population, etc is more desirable.
+        Once all values are specified, the form submits and a HTTP request with method POST is sent to compare.php
+        and template3.php is rendered with the values entered into template2.php's form passed in.</li>
+    </ul>
+    <li class=bolds>template3.php</li>
+    <ul>
+        <li>template3 description</li>
+    </ul>
+    <li class=bolds>template4.php</li>
+    <ul>
+        <li>Template4 is where a GET request to ideal.php leads. Here the user is asked to fill out a form
+        typing in the ideal values for each attribute, hoping to find a state that is a close match (low weighted score)
+        Again, the sliders are handled with script tags and javascript to update the numbers beneath the slider
+        itself. After a user selects their importance, the form submits and a HTTP request with method POST is
+        sent to ideal.php and template5.php is rendered with the values entered into template4.php's form passed in.</li>
+    </ul>
+    <li class=bolds>template5.php</li>
+    <ul>
+        <li>template5 description</li>
+    </ul>
+    <li class=bolds>theboys2.php</li>
+    <ul>
+        <li>This page shows the creators of this fine website: The Boys (J.Paul Meyer and Jake Morrisey)</li>
+    </ul>
+    <li class=bolds>documentation2.php</li>
+    <ul>
+        <li>This page shows the documentation for our entire project nicely shown with bullet points and headers.</li>
+    </ul>
+    <li class=bolds>design2.php</li>
+    <ul>
+        <li>This page... INCEPTION!</li>
+    </ul>
+    <hr>
+    <h2>Other</h2>
+    <li class=bolds>states.csv</li>
+    <ul>
+        <li>states.csv description</li>
+    </ul>
+    <li class=bolds>states.sql</li>
+    <ul>
+        <li>states.sql description</li>
+    </ul>
+    
+</ul>
