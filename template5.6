@@ -1,0 +1,666 @@
+<!--
+    -JPaul Meyer and Jake Morrissey
+    -template5.php
+    -
+    -CS50
+    -State Compare
+    -
+    -template for ideal output table
+!-->
+
+<div>
+    </br>
+    <table class=idealtable>
+    <!-- top row of table !-->
+    <tr>
+        <td class=topredbox>Rank</td>
+        <td class=topbluebox>State</td>
+        <?php
+            if ($ipopulation > 0)
+            {
+                print("<td class=topcontentbox>Population Rank</td>");
+            }
+            if ($iarea > 0)
+            {
+                print("<td class=topcontentbox>Area Rank</td>");
+            }
+            if ($itemp > 0)
+            {
+                print("<td class=topcontentbox>Temperature Rank</td>");
+            }
+            if ($iincome > 0)
+            {
+                print("<td class=topcontentbox>Income Rank</td>");
+            }
+            if ($icoast > 0)
+            {
+                print("<td class=topcontentbox>Coastline Rank</td>");
+            }
+            print("<td class=topredbox>Final Score</td>");
+        ?>
+    </tr>
+
+    <?php
+        // obtains state data
+        $positions = query("SELECT * FROM states WHERE 1");
+        
+        // array of all state names
+        $states = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $states[$i] = $positions[$i]["name"];
+        }
+        
+        /*
+         * various arrays used to create the associative array "popdone", 
+         * an alphabetical list of each state paired with its population rank-
+         * lower standard deviation from ideal population means higher rank
+         */         
+        $popdev = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $popdev[$i] = abs($positions[$i]["population"] - $xpopulation);
+        }
+        
+        $popstates = array();
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $popstates[$states[$i]] = $popdev[$i];
+        }
+        asort($popstates);
+        
+        $popii = 1;
+        $popsame = [];
+        foreach ($popstates as $popkey2)
+        {
+            $popsame[$popii] = $popkey2;
+            $popii = $popii + 1;
+        }
+        
+        $popkeys = [];
+        $popi = 1;
+        $popranks = [];
+        foreach ($popstates as $popkey => $popval)
+        {
+            $popkeys[$popi] = $popkey;
+            $popranks[$popkey] = $popi;
+            $popi = $popi + 1;
+        }
+        
+        $poplast = [];
+        $popix = 1;
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            foreach ($popranks as $popkeylast => $popvallast)
+            {
+                if ($states[$i] == $popkeylast)
+                {
+                    $poplast[$popix] = $states[$i];
+                }
+            }
+            $popix = $popix + 1;
+        }
+       
+        $popcopy = array_flip($popranks);
+        
+        $finalpop = [];
+        for ($iz = 1; $iz < 51; $iz = $iz + 1)
+        {
+            for ($i = 1; $i < 51; $i = $i + 1)
+            {
+                if ($poplast[$iz] == $popcopy[$i])
+                {
+                    $finalpop[$iz] = $i;
+                }
+            }
+        }
+        
+        for ($i = 1; $i < 51; $i = $i + 1)
+        {
+            for ($j = 1; $j < 51; $j = $j + 1)
+            {
+                if ($popsame[$i] == $popsame[$j])
+                {
+                    for ($k = 1; $k < 51; $k = $k + 1)
+                    {
+                        if ($i > $j)
+                        {
+                            if ($finalpop[$k] == $i)
+                            {
+                                $finalpop[$k] = $j;
+                            }
+                        }
+                        else if ($j > $i)
+                        {
+                            if ($finalpop[$k] == $j)
+                            {
+                                $finalpop[$k] = $i;
+                            } 
+                        }
+                    }
+                }
+            }
+        }
+        
+        $popdone = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $popdone[$states[$i]] = $finalpop[$i + 1];
+        }              
+        
+        /*
+         * various arrays used to create the associative array "areadone", 
+         * an alphabetical list of each state paired with its area rank-
+         * lower standard deviation from ideal area means higher rank
+         */
+        $areadev = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $areadev[$i] = abs($positions[$i]["area"] - $xarea);
+        }
+        
+        $areastates = array();
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $areastates[$states[$i]] = $areadev[$i];
+        }
+        asort($areastates);
+        
+        $areaii = 1;
+        $areasame = [];
+        foreach ($areastates as $areakey2)
+        {
+            $areasame[$areaii] = $areakey2;
+            $areaii = $areaii + 1;
+        }
+        
+        $areakeys = [];
+        $areai = 1;
+        $arearanks = [];
+        foreach ($areastates as $areakey => $areaval)
+        {
+            $areakeys[$areai] = $areakey;
+            $arearanks[$areakey] = $areai;
+            $areai = $areai + 1;
+        }
+        
+        $arealast = [];
+        $areaix = 1;
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            foreach ($arearanks as $areakeylast => $areavallast)
+            {
+                if ($states[$i] == $areakeylast)
+                {
+                    $arealast[$areaix] = $states[$i];
+                }
+            }
+            $areaix = $areaix + 1;
+        }
+       
+        $areacopy = array_flip($arearanks);
+        
+        $finalarea = [];
+        for ($iz = 1; $iz < 51; $iz = $iz + 1)
+        {
+            for ($i = 1; $i < 51; $i = $i + 1)
+            {
+                if ($arealast[$iz] == $areacopy[$i])
+                {
+                    $finalarea[$iz] = $i;
+                }
+            }
+        }
+        
+        for ($i = 1; $i < 51; $i = $i + 1)
+        {
+            for ($j = 1; $j < 51; $j = $j + 1)
+            {
+                if ($areasame[$i] == $areasame[$j])
+                {
+                    for ($k = 1; $k < 51; $k = $k + 1)
+                    {
+                        if ($i > $j)
+                        {
+                            if ($finalarea[$k] == $i)
+                            {
+                                $finalarea[$k] = $j;
+                            }
+                        }
+                        else if ($j > $i)
+                        {
+                            if ($finalarea[$k] == $j)
+                            {
+                                $finalarea[$k] = $i;
+                            } 
+                        }
+                    }
+                }
+            }
+        }
+        
+        $areadone = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $areadone[$states[$i]] = $finalarea[$i + 1];
+        } 
+
+        /*
+         * various arrays used to create the associative array "tempdone", 
+         * an alphabetical list of each state paired with its temperature rank-
+         * lower standard deviation from ideal temperature means higher rank
+         */
+        $tempdev = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $tempdev[$i] = abs($positions[$i]["temp"] - $xtemp);
+        }
+        
+        $tempstates = array();
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $tempstates[$states[$i]] = $tempdev[$i];
+        }
+        asort($tempstates);
+        
+        $tempii = 1;
+        $tempsame = [];
+        foreach ($tempstates as $tempkey2)
+        {
+            $tempsame[$tempii] = $tempkey2;
+            $tempii = $tempii + 1;
+        } 
+        
+        $tempkeys = [];
+        $tempi = 1;
+        $tempranks = [];
+        foreach ($tempstates as $tempkey => $tempval)
+        {
+            $tempkeys[$tempi] = $tempkey;
+            $tempranks[$tempkey] = $tempi;
+            $tempi = $tempi + 1;
+        }
+        
+        $templast = [];
+        $tempix = 1;
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            foreach ($tempranks as $tempkeylast => $tempvallast)
+            {
+                if ($states[$i] == $tempkeylast)
+                {
+                    $templast[$tempix] = $states[$i];
+                }
+            }
+            $tempix = $tempix + 1;
+        }
+       
+        $tempcopy = array_flip($tempranks);
+        
+        $finaltemp = [];
+        for ($iz = 1; $iz < 51; $iz = $iz + 1)
+        {
+            for ($i = 1; $i < 51; $i = $i + 1)
+            {
+                if ($templast[$iz] == $tempcopy[$i])
+                {
+                    $finaltemp[$iz] = $i;
+                }
+            }
+        }
+        
+        for ($i = 1; $i < 51; $i = $i + 1)
+        {
+            for ($j = 1; $j < 51; $j = $j + 1)
+            {
+                if ($tempsame[$i] == $tempsame[$j])
+                {
+                    for ($k = 1; $k < 51; $k = $k + 1)
+                    {
+                        if ($i > $j)
+                        {
+                            if ($finaltemp[$k] == $i)
+                            {
+                                $finaltemp[$k] = $j;
+                            }
+                        }
+                        else if ($j > $i)
+                        {
+                            if ($finaltemp[$k] == $j)
+                            {
+                                $finaltemp[$k] = $i;
+                            } 
+                        }
+                    }
+                }
+            }
+        }
+        
+        $tempdone = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $tempdone[$states[$i]] = $finaltemp[$i + 1];
+        }
+        
+        /*
+         * various arrays used to create the associative array "incomedone", 
+         * an alphabetical list of each state paired with its income rank-
+         * lower standard deviation from ideal income means higher rank
+         */
+        $incomedev = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $incomedev[$i] = abs($positions[$i]["income"] - $xincome);
+        }
+        
+        $incomestates = array();
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $incomestates[$states[$i]] = $incomedev[$i];
+        }
+        asort($incomestates);
+        
+        $incomeii = 1;
+        $incomesame = [];
+        foreach ($incomestates as $incomekey2)
+        {
+            $incomesame[$incomeii] = $incomekey2;
+            $incomeii = $incomeii + 1;
+        }
+        
+        $incomekeys = [];
+        $incomei = 1;
+        $incomeranks = [];
+        foreach ($incomestates as $incomekey => $incomeval)
+        {
+            $incomekeys[$incomei] = $incomekey;
+            $incomeranks[$incomekey] = $incomei;
+            $incomei = $incomei + 1;
+        }
+        
+        $incomelast = [];
+        $incomeix = 1;
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            foreach ($incomeranks as $incomekeylast => $incomevallast)
+            {
+                if ($states[$i] == $incomekeylast)
+                {
+                    $incomelast[$incomeix] = $states[$i];
+                }
+            }
+            $incomeix = $incomeix + 1;
+        }
+       
+        $incomecopy = array_flip($incomeranks);
+        
+        $finalincome = [];
+        for ($iz = 1; $iz < 51; $iz = $iz + 1)
+        {
+            for ($i = 1; $i < 51; $i = $i + 1)
+            {
+                if ($incomelast[$iz] == $incomecopy[$i])
+                {
+                    $finalincome[$iz] = $i;
+                }
+            }
+        }
+        
+        for ($i = 1; $i < 51; $i = $i + 1)
+        {
+            for ($j = 1; $j < 51; $j = $j + 1)
+            {
+                if ($incomesame[$i] == $incomesame[$j])
+                {
+                    for ($k = 1; $k < 51; $k = $k + 1)
+                    {
+                        if ($i > $j)
+                        {
+                            if ($finalincome[$k] == $i)
+                            {
+                                $finalincome[$k] = $j;
+                            }
+                        }
+                        else if ($j > $i)
+                        {
+                            if ($finalincome[$k] == $j)
+                            {
+                                $finalincome[$k] = $i;
+                            } 
+                        }
+                    }
+                }
+            }
+        }
+        
+        $incomedone = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $incomedone[$states[$i]] = $finalincome[$i + 1];
+        }            
+        
+        /*
+         * various arrays used to create the associative array "coastdone", 
+         * an alphabetical list of each state paired with its coastline rank-
+         * lower standard deviation from ideal coastline means higher rank
+         */
+        $coastdev = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $coastdev[$i] = abs($positions[$i]["coast"] - $xcoast);
+        }
+        
+        $coaststates = array();
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $coaststates[$states[$i]] = $coastdev[$i];
+        }
+        asort($coaststates);
+        
+        $coastii = 1;
+        $coastsame = [];
+        foreach ($coaststates as $coastkey2)
+        {
+            $coastsame[$coastii] = $coastkey2;
+            $coastii = $coastii + 1;
+        }
+        
+        $coastkeys = [];
+        $coasti = 1;
+        $coastranks = [];
+        foreach ($coaststates as $coastkey => $coastval)
+        {
+            $coastkeys[$coasti] = $coastkey;
+            $coastranks[$coastkey] = $coasti;
+            $coasti = $coasti + 1;
+        }
+        
+        $coastlast = [];
+        $coastix = 1;
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            foreach ($coastranks as $coastkeylast => $coastvallast)
+            {
+                if ($states[$i] == $coastkeylast)
+                {
+                    $coastlast[$coastix] = $states[$i];
+                }
+            }
+            $coastix = $coastix + 1;
+        }
+       
+        $coastcopy = array_flip($coastranks);
+        
+        $finalcoast = [];
+        for ($iz = 1; $iz < 51; $iz = $iz + 1)
+        {
+            for ($i = 1; $i < 51; $i = $i + 1)
+            {
+                if ($coastlast[$iz] == $coastcopy[$i])
+                {
+                    $finalcoast[$iz] = $i;
+                }
+            }
+        }
+        
+        for ($i = 1; $i < 51; $i = $i + 1)
+        {
+            for ($j = 1; $j < 51; $j = $j + 1)
+            {
+                if ($coastsame[$i] == $coastsame[$j])
+                {
+                    for ($k = 1; $k < 51; $k = $k + 1)
+                    {
+                        if ($i > $j)
+                        {
+                            if ($finalcoast[$k] == $i)
+                            {
+                                $finalcoast[$k] = $j;
+                            }
+                        }
+                        else if ($j > $i)
+                        {
+                            if ($finalcoast[$k] == $j)
+                            {
+                                $finalcoast[$k] = $i;
+                            } 
+                        }
+                    }
+                }
+            }
+        }
+        
+        $coastdone = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $coastdone[$states[$i]] = $finalcoast[$i + 1];
+        }     
+              
+        /*
+         * various arrays used to create the associative array "rankdone", 
+         * an alphabetical list of each state paired with its overall rank-
+         * lower final score means higher overall rank for state
+         * note: final score = sum of (state's factor rank * factor importance rating) for all factors
+         */
+        $rankstates = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $rankstates[$states[$i]] = $popdone[$states[$i]] * $ipopulation + $areadone[$states[$i]] * $iarea + $tempdone[$states[$i]] * $itemp + $incomedone[$states[$i]] * $iincome + $coastdone[$states[$i]] * $icoast;
+        }
+        asort($rankstates);
+        
+        $rankii = 1;
+        $ranksame = [];
+        foreach ($rankstates as $rankkey2)
+        {
+            $ranksame[$rankii] = $rankkey2;
+            $rankii = $rankii + 1;
+        }
+        
+        $rankkeys = [];
+        $ranki = 1;
+        $rankranks = [];
+        foreach ($rankstates as $rankkey => $rankval)
+        {
+            $rankkeys[$ranki] = $rankkey;
+            $rankranks[$rankkey] = $ranki;
+            $ranki = $ranki + 1;
+        }
+        
+        $ranklast = [];
+        $rankix = 1;
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            foreach ($rankranks as $rankkeylast => $rankvallast)
+            {
+                if ($states[$i] == $rankkeylast)
+                {
+                    $ranklast[$rankix] = $states[$i];
+                }
+            }
+            $rankix = $rankix + 1;
+        }
+        
+        $rankcopy = array_flip($rankranks);
+        
+        $finalrank = [];
+        for ($iz = 1; $iz < 51; $iz = $iz + 1)
+        {
+            for ($i = 1; $i < 51; $i = $i + 1)
+            {
+                if ($ranklast[$iz] == $rankcopy[$i])
+                {
+                    $finalrank[$iz] = $i;
+                }
+            }
+        }
+        
+        
+        for ($i = 1; $i < 51; $i = $i + 1)
+        {
+            for ($j = 1; $j < 51; $j = $j + 1)
+            {
+                if ($ranksame[$i] == $ranksame[$j])
+                {
+                    for ($k = 1; $k < 51; $k = $k + 1)
+                    {
+                        if ($i > $j)
+                        {
+                            if ($finalrank[$k] == $i)
+                            {
+                                $finalrank[$k] = $j;
+                            }
+                        }
+                        else if ($j > $i)
+                        {
+                            if ($finalrank[$k] == $j)
+                            {
+                                $finalrank[$k] = $i;
+                            } 
+                        }
+                    }
+                }
+            }
+        }
+        
+        $rankdone = [];
+        for ($i = 0; $i < 50; $i = $i + 1)
+        {
+            $rankdone[$states[$i]] = $finalrank[$i + 1];
+        }
+        
+       /*
+        * prints a data row for each state in format:
+        * Rank; State; Population Rank; Area Rank; Temperature Rank; Income Rank; Coastline Rank; Final Score;
+        */
+        for ($i = 1; $i < 51; $i = $i + 1)
+        {
+            print("<tr>");            
+            print("<td class = contentredbox>" . $rankdone[$rankkeys[$i]] . "</td>");          
+            print("<td class = contentbluebox>" . $rankkeys[$i] . "</td>");
+            if ($ipopulation > 0)
+            {
+                print("<td class=contentbox>" . $popdone[$rankkeys[$i]] . "</td>");
+            }
+            if ($iarea > 0)
+            {
+                print("<td class=contentbox>" . $areadone[$rankkeys[$i]] . "</td>");
+            }
+            if ($itemp > 0)
+            {
+                print("<td class=contentbox>" . $tempdone[$rankkeys[$i]] . "</td>");
+            }
+            if ($iincome > 0)
+            {
+                print("<td class=contentbox>" . $incomedone[$rankkeys[$i]] . "</td>");
+            }
+            if ($icoast > 0)
+            {
+                print("<td class=contentbox>" . $coastdone[$rankkeys[$i]] . "</td>");
+            }
+            print("<td class = contentredbox>" . ($rankstates[$rankkeys[$i]]) . "</td>");
+            print("</tr>");
+        }
+    ?>
+    </table>
+</div>
