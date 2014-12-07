@@ -133,7 +133,30 @@
     </ul>
     <li class=bolds>template3.php</li>
     <ul>
-        <li>template3 description</li>
+        <li>Template3 outputs a table comparing two states (determined by the user)
+        based on the factors that our website includes: population, miles of area, temperature, 
+        median household income, and miles of coastline. The first column is the title for each row,
+        the second column is the first state's data, and the third column is the second state's data.
+        The first row, displaying the state names, will always appear.
+        The middle rows, displaying the data for each factor for both states, will only
+        appear if the importance ranking for the factor (determined by the user) is
+        greater than zero. The final two rows, showing the raw score and weighted score
+        for both states, will also always appear. For each factor, the user can decide if they 
+        prefer high or low (e.g. high temperature vs. low temperature). The state that matches
+        the user's preferences will be the "winner" for that factor. This state's data for that specific factor will be
+        displayed in green while the "loser" will be displayed in red. The winner's raw score will increase by 1. 
+        In the event of a tie, both states will be displayed in gold. Both states' raw score will increase by 0.5.
+        For the raw score row towards the bottom of the table, the state with the higher raw score
+        will be displayed in green, with the state with the lower raw score displayed in red.
+        Again, in event of a tie both states are displayed in gold. The final component of this table is
+        weighted score. For each factor, if there is a winner, the winner's weighted score increases by:
+        abs(((first state's value) - (second state's value)) / (2 * (first state's value) + (second state's value))) * 100 * factor importance rating
+        Once these calculations have taken place for all factors, both states will have their own weighted score.
+        These weighted scores are then converted to percentages using the formula:
+        (state's weighted score) / (state's weighted score + other state's weighted score)
+        These represent the final weighted scores for each state.
+        The final row of the table is then presented in a similar way to previous rows,
+        with the state with the higher weighted getting the green color, etc.</li>
     </ul>
     <li class=bolds>template4.php</li>
     <ul>
@@ -145,7 +168,27 @@
     </ul>
     <li class=bolds>template5.php</li>
     <ul>
-        <li>template5 description</li>
+        <li>template5.php outputs a table showing the rankings of each state,
+        based on how well they match the user's preferences. All rows in the 
+        table are ordered in terms of overall rank. Also, each row contains data 
+        from the same state (thus, there are 50 rows). The first two columns,
+        overall rank and state, are always printed. The middle columns, which display the 
+        state's ranking for individual factors (population, area, temperature, income, and coastline)
+        are only displayed if the user's importance ranking for that factor is greater than
+        zero. The final column of the table, final score, is also always printed. The lower 
+        a state's final score, the better it matches the user's preferences and the higher its ranking.
+        A state's final score is calculated using the formula: 
+        sum of ((state's factor rank) * (factor's importance ranking)) for all factors.
+        For any given factor, a state's factor rank also takes some calculations.
+        First, the absolute deviation of each state's value from the ideal value (which is provided by the user)
+        is calculated. Then, the states are ranked in order from lowest deviation to highest deviation.
+        This is done using a series of associative arrays, eventually constructing a final 
+        associative array that associates the correct rank for each state. Much of the complexity 
+        of this series of associative arrays is only included in order to handle the case
+        where two different states have the same deviation, and thus deserve the same ranking.
+        (A very similar process is used to determine the overall rankings, with final score being used as a means
+        for comparison rather than deviation.) The aesthetics of the page are designed so that
+        the title row of each column is slightly darker than the rows beneath.</li>
     </ul>
     <li class=bolds>theboys2.php</li>
     <ul>
@@ -163,11 +206,17 @@
     <h2>Other</h2>
     <li class=bolds>states.csv</li>
     <ul>
-        <li>states.csv description</li>
+        <li>states.csv is a listing of all the data used in our SQL database.
+        It has 50 rows, one for each state, formatted in the style: 
+        name;population;area;temperature;income;coastline.
+        We used this file to populate our SQL database.</li>
     </ul>
     <li class=bolds>states.sql</li>
     <ul>
-        <li>states.sql description</li>
+        <li>states.sql is the file produced through phpMyAdmin by exporting
+        our SQL table. This file can be used to import our table to a user's
+        phpMyAdmin page. It includes all the data from states.csv as well as
+        other information about the SQL table.</li>
     </ul>
     
 </ul>
