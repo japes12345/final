@@ -1,0 +1,39 @@
+!-->
+
+<html>
+
+    <head>
+        
+        <!-- css configuration !-->
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/styles.css?v=<?php echo(time()); ?>" rel="stylesheet" type="text/css"/>
+        
+        <!-- handles title !-->
+        <title>State Compare</title>      
+        <?php if (isset($title)): ?>
+            <title>State Compare: <?= htmlspecialchars($title) ?></title>
+        <?php else: ?>
+            <title>State Compare</title>
+        <?php endif ?>
+        
+        <!-- javascript configuration !-->
+        <script src="/js/jquery-1.11.1.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/scripts.js"></script>
+
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="top">
+                </br>
+                <!-- header pictures, link to home page !-->
+                <a href="/"><img alt="America Picture" height=88 width=140 src="/img/americalogo.png"/></a>
+                <a href="/"><img alt="State Compare" height=157 width=534 src="/img/statecompare.png"/></a>
+                <a href="/"><img alt="America Picture" height=88 width=140 src="/img/americalogo.png"/></a>
+                </br>
+            </div>
+
+            <div id="middle">
