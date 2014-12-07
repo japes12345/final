@@ -1,0 +1,8 @@
+So why did we put pset7 inside of a directory called vhosts? Well, the appliance is configured to serve "virtual hosts" (i.e., websites) out of the latter. Specifically, if you visit, say, http://pset7/ using Chrome inside of the appliance, the appliance is configured to look in ~/vhosts/pset7/public for that website’s web-accessible files. But for that to work, we also need to associate the appliance’s own IP address with pset7 so that it "resolves" via DNS to it. Rather than set up a whole DNS server to do that, we can actually edit a file called hosts in a directory called etc. Let’s do that.
+
+In a terminal window, execute
+
+sudo gedit /etc/hosts
+in order to run gedit as the appliance’s "superuser" (aka "root") so that you can edit what’s otherwise a read-only file. Carefully add this line at the bottom of that file, which will associate pset7 with the appliance’s "loopback" address (which won’t ever change):
+
+127.0.0.1 pset7
