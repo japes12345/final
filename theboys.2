@@ -1,0 +1,23 @@
+<?php
+
+    /**
+     *JPaul Meyer and Jake Morrissey
+     *theboys.php
+     *
+     *CS50
+     *State Compare
+     *
+     *used for rendering "theboys" page
+     */
+    
+    // configuration
+    require("../includes/config.php"); 
+    
+    // if request method is get
+    if($_SERVER["REQUEST_METHOD"] == "GET")
+    {
+        // render "theboys" page
+        render("theboys2.php");
+    }
+
+?>
